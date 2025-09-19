@@ -192,7 +192,7 @@ export default function MenuSection({
 
       <div className="mt-10" />
 
-      <RenderFilters t={t} />
+      {/* <RenderFilters t={t} /> */}
 
       {groups.filter((g) => g.items.length > 0).map((g, idx) => (
         <div key={g.key} id={`panel-${g.key}`} role="tabpanel" aria-labelledby={`tab-${g.key}`}>
