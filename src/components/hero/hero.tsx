@@ -13,7 +13,7 @@ export default function Hero() {
       {/*Mobile (phones) */}
       <div className="relative w-full aspect-[9/16] max-h-[92dvh] md:hidden">
         <Image
-          src="/images/hero/hero-steak.png"
+          src="/images/hero/hero-steak.jpg"
           alt=""
           fill
           priority
@@ -57,7 +57,7 @@ export default function Hero() {
           <div className="relative w-full aspect-[1440/940]">
             <div className="absolute inset-y-0 left-[57px] right-[57px]">
               <Image
-                src="/images/hero/hero-desktop.png"
+                src="/images/hero/hero-desktop.jpg"
                 alt=""
                 fill
                 priority
@@ -71,13 +71,13 @@ export default function Hero() {
             <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-[57px] bg-black">
               <div
                 className="absolute top-0 left-0 w-[30px] h-full bg-repeat-y bg-center bg-contain opacity-85"
-                style={{ backgroundImage: "url(/images/hero/filmstrip.png)" }}
+                style={{ backgroundImage: "url(/images/hero/filmstrip.jpg)" }}
               />
             </div>
             <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-[57px] bg-black">
               <div
                 className="absolute top-0 right-0 w-[30px] h-full bg-repeat-y bg-center bg-contain opacity-85"
-                style={{ backgroundImage: "url(/images/hero/filmstrip.png)" }}
+                style={{ backgroundImage: "url(/images/hero/filmstrip.jpg)" }}
               />
             </div>
 
@@ -107,7 +107,7 @@ export default function Hero() {
                 style={{ top: "38.9%", left: "46.6%", width: "15.5%", height: "45.6%" }}
               >
                 <Image
-                  src="/images/hero/hero-collage-meat.png"
+                  src="/images/hero/hero-collage-meat.jpg"
                   alt=""
                   fill
                   className="object-cover"
@@ -119,7 +119,7 @@ export default function Hero() {
                 style={{ top: "16.4%", left: "71%", width: "18.8%", height: "51.6%" }}
               >
                 <Image
-                  src="/images/hero/hero-collage-pizza.png"
+                  src="/images/hero/hero-collage-pizza.jpg"
                   alt=""
                   fill
                   className="object-cover"
@@ -131,7 +131,7 @@ export default function Hero() {
                 style={{ top: "23.4%", left: "56.6%", width: "23.5%", height: "69.1%" }}
               >
                 <Image
-                  src="/images/hero/hero-steak.png"
+                  src="/images/hero/hero-steak.jpg"
                   alt=""
                   fill
                   className="object-cover"
