@@ -1,43 +1,64 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, useId } from "react";
-import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation"; // Import useParams
+import { useTranslations, useLocale } from "next-intl"; // Import useLocale
+import { useParams } from "next/navigation";
 import ToggleSwitch from "@/components/ui/toggleSwitch";
 import MenuGroup from "@/components/menu/menuGroup";
 import axios from "axios";
 
-// --- Utility Function ---
+// --- Utility Functions ---
 function cx(...p: Array<string | boolean | null | undefined>) {
   return p.filter(Boolean).join(" ");
+}
+
+/**
+ * Gets the localized text for a given field based on the current locale.
+ * Fallbacks to Russian if the requested locale is not available.
+ */
+function getLocalizedText(
+  item: any,
+  locale: string,
+  field: "title" | "name" | "description"
+): string {
+  const key = `${field}_${locale === "kz" ? "kk" : locale}`; // Map 'kz' to 'kk'
+  // Safely check for the key, and fall back to Russian
+  return item[key] || item[`${field}_ru`] || "";
 }
 
 // --- Interfaces for API data ---
 interface Dish {
   id: number;
   name_ru: string;
-  name_en: string;
+  name_en: string | null;
+  name_kk: string | null;
   price: string;
   description_ru: string;
+  description_kk: string | null;
+  description_en: string | null;
   image: string;
-  name_kk: string;
-  i18nKey?: string; // Optional since API might not provide it
+  i18nKey?: string;
 }
 
 interface Category {
   id: number;
   name_ru: string;
-  name_en: string;
-  name_kk: string;
+  name_en: string | null;
+  name_kk: string | null;
   description_ru: string;
+  description_kk: string | null;
+  description_en: string | null;
   dishes: number[];
 }
 
 interface Menu {
   id: number;
   title_ru: string;
-  title_en: string;
+  title_kk: string | null;
+  title_en: string | null;
   description_ru: string;
+  description_kk: string | null;
+  description_en: string | null;
   categories: number[];
   hall: number;
   is_active: boolean;
@@ -52,7 +73,8 @@ export default function MenuSection({
   onChange?(i: number, label: string): void;
 }) {
   const t = useTranslations();
-  const params = useParams(); // Get URL parameters
+  const locale = useLocale(); // Get the current locale
+  const params = useParams();
 
   const [active, setActive] = useState(initialActiveIndex);
   const [menu, setMenu] = useState<Menu | null>(null);
@@ -70,7 +92,6 @@ export default function MenuSection({
 
   // --- Data Fetching Logic ---
   useEffect(() => {
-    // Get the dynamic menuId from the URL params
     const menuId = params.menuId;
 
     if (!menuId) {
@@ -83,7 +104,7 @@ export default function MenuSection({
       try {
         setLoading(true);
         const [menuResponse, categoriesResponse, dishesResponse] = await Promise.all([
-          axios.get(`/api/menu/${menuId}/`), // Use the dynamic menuId here
+          axios.get(`/api/menu/${menuId}/`),
           axios.get("/api/categories/"),
           axios.get("/api/dishes/"),
         ]);
@@ -98,7 +119,7 @@ export default function MenuSection({
       }
     };
     fetchMenuData();
-  }, [params]); // Add params to the dependency array
+  }, [params]);
 
   // --- Process and Structure Data for Rendering ---
   const groups = useMemo(() => {
@@ -110,10 +131,14 @@ export default function MenuSection({
 
     return menuCategories.map((cat) => ({
       key: `cat-${cat.id}`,
-      title: cat.name_ru,
-      items: allDishes.filter((dish) => (cat.dishes as any).includes(dish.id)),
+      title: getLocalizedText(cat, locale, "name"), // Use localized name
+      items: allDishes.filter((dish) => (cat.dishes as any).includes(dish.id)).map(dish => ({
+        ...dish,
+        name: getLocalizedText(dish, locale, "name"),
+        description: getLocalizedText(dish, locale, "description"),
+      })),
     }));
-  }, [categories, allDishes, menu]);
+  }, [categories, allDishes, menu, locale]); // Add locale to dependency array
 
   // --- Effects for UI Interaction ---
   useEffect(() => {
@@ -152,7 +177,7 @@ export default function MenuSection({
     <section id="menu" className="w-full bg-white overflow-x-hidden">
       <div className="mx-auto w-full max-w-[1040px] px-4">
         <h2 className="pt-8 lg:pt-12 font-raleway font-bold uppercase text-[#961515] text-[28px] lg:text-[40px] leading-[1]">
-          {menu ? menu.title_ru : t("menu.title")}
+          {menu ? getLocalizedText(menu, locale, "title") : t("menu.title")} {/* Use localized title */}
         </h2>
       </div>
 
@@ -169,11 +194,11 @@ export default function MenuSection({
 
       <RenderFilters t={t} />
 
-      {groups.filter((g) => g.items.length > 0).map((g, idx) => (
+      {/* {groups.filter((g) => g.items.length > 0).map((g, idx) => (
         <div key={g.key} id={`panel-${g.key}`} role="tabpanel" aria-labelledby={`tab-${g.key}`}>
           <MenuGroup id={`group-${g.key}`} title={g.title} items={g.items} first={idx === 0} />
         </div>
-      ))}
+      ))} */}
 
       {/* Back-to-top button */}
       <div className="mx-auto w-full max-w-[1040px] px-4 mt-8 md:hidden">

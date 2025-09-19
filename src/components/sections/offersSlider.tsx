@@ -35,7 +35,7 @@ function getLocalizedText(
   locale: string,
   field: "name" | "sub_title" | "description"
 ): string {
-  const key = `${field}_${locale}` as keyof IOffer;
+  const key = `${field}_${locale === "kz" ? "kk" : locale}` as keyof IOffer;
   const value = item[key];
   return typeof value === 'string' ? value : item[`${field}_ru` as keyof IOffer] as string;
 }
