@@ -9,7 +9,7 @@ import HeroLangSwitch from "@/components/hero/heroLangSwitch";
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative w-full overflow-hidden">
+    <section id="about" className="relative w-full overflow-hidden">
       {/*Mobile (phones) */}
       <div className="relative w-full aspect-[9/16] max-h-[92dvh] md:hidden">
         <Image

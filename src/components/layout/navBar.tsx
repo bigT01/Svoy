@@ -120,9 +120,9 @@ export default function Navbar() {
           <div className="h-[96px] flex items-center justify-between">
             {/* Left: logo */}
             <div className="flex-shrink-0">
-              <Link href={`/${locale}`} aria-label="SVOY">
+              {/* <Link href={`/${locale}`} aria-label="SVOY"> */}
                 <Image src="/icons/logo/logo-red.svg" alt="SVOY" width={109} height={52} />
-              </Link>
+              {/* </Link> */}
             </div>
 
             {/* Center nav (large screens) */}
