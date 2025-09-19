@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 type Props = { variant?: "mobile" | "desktop" };
 
@@ -50,8 +51,10 @@ export default function HeroButtons({ variant = "desktop" }: Props) {
   return (
     <div className={`flex flex-col items-center ${isMobile ? "gap-[16px]" : "gap-[24px]"}`}>
       {/* DOWNLOAD */}
-      <a
-        href="#"
+      <Link
+        href="/menu/menu.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
         className={[
           "flex items-center justify-center rounded-[2px] border font-semibold",
           // text sizes: 16 mobile / 18 tablet / 20 desktop (if you're already doing this elsewhere, keep it)
@@ -67,7 +70,7 @@ export default function HeroButtons({ variant = "desktop" }: Props) {
         }}
       >
         {t("download")}
-      </a>
+      </Link>
 
       {/* VIEW ONLINE */}
       <SmoothScroll

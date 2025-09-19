@@ -30,7 +30,9 @@ export default function Footer() {
                 <a href={`tel:${phoneHref}`} className="hover:opacity-90">{phoneText}</a>
               </p>
               <div className="flex items-center gap-4">
-                <Image src="/icons/footer/whatsapp.svg" alt="WhatsApp" width={24} height={24} />
+                <Link href={"https://api.whatsapp.com/send/?phone=77770900333&text&type=phone_number&app_absent=0&wame_ctl=1&source_surface=23"} target="_blanck">
+                  <Image src="/icons/footer/whatsapp.svg" alt="WhatsApp" width={24} height={24} />
+                </Link>
                 <Link href={'https://www.instagram.com/svoy.astana/'} target="_blanck">
                   <Image src="/icons/footer/instagram.svg" alt="Instagram" width={24} height={24} />
                 </Link>
@@ -81,7 +83,9 @@ export default function Footer() {
               <a href={`tel:${phoneHref}`} className="hover:opacity-90">{phoneText}</a>
             </p>
             <div className="mt-3 flex items-center gap-5">
+              <Link href={"https://api.whatsapp.com/send/?phone=77770900333&text&type=phone_number&app_absent=0&wame_ctl=1&source_surface=23"} target="_blanck">
               <Image src="/icons/footer/whatsapp.svg" alt="WhatsApp" width={28} height={28} />
+              </Link>
               <Link href={'https://www.instagram.com/svoy.astana/'} target="_blanck">
               <Image src="/icons/footer/instagram.svg" alt="Instagram" width={28} height={28} />
               
