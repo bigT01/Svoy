@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth in-page anchor scrolls (for the back-to-top + nav hashes) */
+html { scroll-behavior: smooth; }
+
+/* Kill horizontal bars/bleed everywhere */
+html, body {
+  background: #ffffff;
+  overflow-x: clip;       /* modern */
+}
+* { box-sizing: border-box; }
+
+/* Swiper defaults (we provide external arrows) */
+.swiper-button-prev, .swiper-button-next { display: none !important; }
+
+/* Offer detail bullets (kept if you use them) */
+.offer-detail-pagination { display: flex; gap: 8px; align-items: center; justify-content: center; }
+.offer-detail-pagination .offer-detail-bullet {
+  width: 8px; height: 8px; border-radius: 2px; background: rgba(255,255,255,0.55);
+  display: inline-block; transition: all 200ms ease;
+}
+.offer-detail-pagination .offer-detail-bullet.swiper-pagination-bullet-active {
+  width: 12px; height: 8px; background: #fff;
+}
+
+.hide-menu #menu { display: none !important; }
+.hide-footer #site-footer { display: none !important; }
