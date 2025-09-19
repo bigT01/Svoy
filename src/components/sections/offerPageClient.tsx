@@ -9,24 +9,53 @@ import { Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useLocale, useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
+import axios from "axios";
+import Modal from "./modal";
 
-import Modal from "@/components/sections/modal";
-import type { Offer as DataOffer } from "@/data/offers";
-import { useMenuId } from "@/components/menu/menuContext";
+// --- Interfaces ---
+export interface IOffer {
+  id: number;
+  name_ru: string;
+  name_en: string | null;
+  name_kk: string | null;
+  sub_title_ru: string | null;
+  sub_title_en: string | null;
+  sub_title_kk: string | null;
+  description_ru: string | null;
+  description_en: string | null;
+  description_kk: string | null;
+  medias: string; // Changed to an array of objects
+  created_at?: string;
+  updated_at?: string;
+}
 
-type Props = { offer: DataOffer };
+// --- Utility Functions ---
+function getLocalizedText(
+  item: IOffer,
+  locale: string,
+  field: "name" | "sub_title" | "description"
+): string | null {
+  const key = `${field}_${locale}` as keyof IOffer;
+  const value = item[key];
+  if (typeof value === "string" && value.trim() !== "") {
+    return value;
+  }
+  return item[`${field}_ru`] as string | null;
+}
 
-export default function OfferPageClient({ offer }: Props) {
+// --- Main Component ---
+export default function OfferPageClient() {
+  const pathname = usePathname();
+  const segments = pathname.split("/").filter(Boolean);
+  const slug = segments.pop();
+
+  const [offer, setOffer] = useState<IOffer | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [open, setOpen] = useState(false);
 
   const locale = useLocale();
-  const menuId = useMenuId() ?? "common"; // fallback
-  const tOffer = useTranslations(`offerItems.${offer.slug}`);
   const tDetail = useTranslations("offerDetail");
-
-  const title = tOffer("title");
-  const subtitle = safeT(tOffer, "subtitle");
-  const content = safeTArray(tOffer, "content");
 
   const bookLabel =
     locale === "ru" ? "Забронировать" : locale === "kz" ? "Бронь жасау" : "Book a table";
@@ -36,52 +65,57 @@ export default function OfferPageClient({ offer }: Props) {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
+  // --- Data Fetching ---
   useEffect(() => {
-    const root = document.documentElement;
-    const prevNavH = root.style.getPropertyValue("--nav-h");
-    root.style.setProperty("--nav-h", "0px");
-    root.classList.add("hide-footer");
-    root.classList.add("hide-menu");
-    return () => {
-      if (prevNavH) root.style.setProperty("--nav-h", prevNavH);
-      else root.style.removeProperty("--nav-h");
-      root.classList.remove("hide-footer");
-      root.classList.remove("hide-menu");
+    if (!slug) {
+      setLoading(false);
+      console.error("No slug found in the URL.");
+      return;
+    }
+
+    const fetchOffer = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get<IOffer>(`/api/halls/${slug}`);
+        setOffer(response.data); // Assuming the API returns an array
+      } catch (error) {
+        console.error("Error fetching offer data:", error);
+        setOffer(null);
+      } finally {
+        setLoading(false);
+      }
     };
-  }, []);
+    fetchOffer();
+  }, [slug]);
 
+  // --- Swiper Navigation & Pagination Wiring ---
   useEffect(() => {
     const sw = swiperRef.current;
-    if (!sw || !paginationRef.current) return;
-    // @ts-expect-error
-    sw.params.pagination.el = paginationRef.current;
-    // @ts-expect-error
-    sw.params.pagination.clickable = true;
-    // @ts-expect-error
-    sw.params.pagination.renderBullet = (_i: number, className: string) =>
-      `<span class="${className} offer-detail-bullet"></span>`;
-    sw.pagination.destroy();
-    sw.pagination.init();
-    sw.pagination.render();
-    sw.pagination.update();
-  }, []);
+    if (!sw) return;
 
-  useEffect(() => {
-    const sw = swiperRef.current;
-    if (!sw || !prevRef.current || !nextRef.current) return;
-    // @ts-expect-error
-    sw.params.navigation.prevEl = prevRef.current;
-    // @ts-expect-error
-    sw.params.navigation.nextEl = nextRef.current;
-    sw.navigation.destroy();
-    sw.navigation.init();
-    sw.navigation.update();
-  }, []);
+    if (sw.navigation) {
+      // sw.navigation.prevEl = prevRef.current;
+      // sw.navigation.nextEl = nextRef.current;
+      sw.navigation.init();
+      sw.navigation.update();
+    }
 
+    if (sw.pagination) {
+      // sw.pagination.el = paginationRef.current;
+      // sw.pagination.clickable = true;
+      // sw.pagination.renderBullet = (_i, className) => `<span class="${className} offer-detail-bullet"></span>`;
+      sw.pagination.init();
+      sw.pagination.render();
+      sw.pagination.update();
+    }
+  }, [loading, offer]);
+
+  // --- Share functionality ---
   const onShare = useCallback(async () => {
+    if (!offer) return;
     const shareData = {
-      title,
-      text: subtitle || title,
+      title: getLocalizedText(offer, locale, "name") || "Offer",
+      text: getLocalizedText(offer, locale, "sub_title") || "",
       url: typeof window !== "undefined" ? window.location.href : "/",
     };
     try {
@@ -102,7 +136,28 @@ export default function OfferPageClient({ offer }: Props) {
         )}&body=${encodeURIComponent(shareData.url)}`;
       }
     } catch {}
-  }, [title, subtitle, locale]);
+  }, [offer, locale]);
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-white font-raleway flex items-center justify-center">
+        <p className="text-xl text-[#961515]">Загрузка...</p>
+      </main>
+    );
+  }
+
+  if (!offer) {
+    return (
+      <main className="min-h-screen bg-white font-raleway flex items-center justify-center">
+        <p className="text-xl text-[#961515]">Предложение не найдено.</p>
+      </main>
+    );
+  }
+
+  const title = getLocalizedText(offer, locale, "name");
+  const subtitle = getLocalizedText(offer, locale, "sub_title");
+  const content = getLocalizedText(offer, locale, "description");
+  const images = offer.medias || [];
 
   return (
     <main className="min-h-screen bg-white font-raleway md:pb-24">
@@ -111,7 +166,7 @@ export default function OfferPageClient({ offer }: Props) {
       {/* Back link (desktop/tablet) */}
       <div className="hidden md:block desktop-rail">
         <Link
-          href={`/${locale}/#offers`}
+          href={pathname.split('/').slice(0, -2).join('/')}
           aria-label={tDetail("back")}
           className="inline-flex items-center gap-3 h-[40px] mb-8 text-[#961515]"
         >
@@ -126,7 +181,7 @@ export default function OfferPageClient({ offer }: Props) {
 
       {/* Back button (mobile) */}
       <Link
-        href={`/${locale}/#offers`}
+        href={pathname.split('/').slice(0, -2).join('/')}
         aria-label={tDetail("back")}
         className="md:hidden absolute top-4 left-4 z-40 grid place-items-center w-10 h-10 rounded bg-white/60"
       >
@@ -140,24 +195,24 @@ export default function OfferPageClient({ offer }: Props) {
             modules={[Pagination, Navigation]}
             onSwiper={(sw) => (swiperRef.current = sw)}
             slidesPerView={1}
-            loop={offer.images.length > 1}
+            loop={images.length > 1}
             navigation
             className="aspect-[412/372] md:aspect-[1040/492] w-full"
           >
-            {offer.images.map(({ id, src }, i) => (
-              <SwiperSlide key={id}>
+            {/* {images.map((media: any, i: number) => ( */}
+              <SwiperSlide>
                 <div className="relative w-full h-full">
                   <Image
-                    src={src}
-                    alt={title}
+                    src={`https://api.svoy-lounge.kz${images}`}
+                    alt={title || "Offer image"}
                     fill
                     sizes="(min-width:768px) calc(100vw - 400px), 100vw"
                     className="object-cover"
-                    priority={i === 0}
+                    // priority={i === 0}
                   />
                 </div>
               </SwiperSlide>
-            ))}
+            {/* // ))} */}
           </Swiper>
 
           <div
@@ -215,15 +270,15 @@ export default function OfferPageClient({ offer }: Props) {
 
           <div className="mt-3 h-px w-full bg-[#E5E5E5]" />
 
-          {!!content.length && (
+          {content && (
             <div>
-              {content.map((p, i) => (
+              {content.split('\n').map((paragraph, i) => (
                 <p
                   key={i}
                   className="mt-6 text-black/80 font-medium text-[14px] leading-[100%] md:text-[20px] md:leading-[100%]"
                   style={{ fontVariantNumeric: "lining-nums proportional-nums" }}
                 >
-                  {p}
+                  {paragraph}
                 </p>
               ))}
             </div>
@@ -232,7 +287,7 @@ export default function OfferPageClient({ offer }: Props) {
           <div>
             <button
               onClick={() => setOpen(true)}
-              className="mt-12 md:mt-16 w-[364px] md:w-full max-w-full h-[51px] rounded-sm bg-[#961515] text.white px-[40px] py-[16px] text-[18px] leading-[100%] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.15)]"
+              className="mt-12 md:mt-16 w-[364px] md:w-full max-w-full h-[51px] rounded-sm bg-[#961515] text-white px-[40px] py-[16px] text-[18px] leading-[100%] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.15)]"
             >
               {bookLabel}
             </button>
@@ -250,12 +305,4 @@ export default function OfferPageClient({ offer }: Props) {
       `}</style>
     </main>
   );
-}
-
-/** Helpers */
-function safeT(t: ReturnType<typeof useTranslations>, key: string): string | undefined {
-  try { return t(key); } catch { return undefined; }
-}
-function safeTArray(t: ReturnType<typeof useTranslations>, key: string): string[] {
-  try { const raw = t.raw(key); return Array.isArray(raw) ? (raw as string[]) : []; } catch { return []; }
 }

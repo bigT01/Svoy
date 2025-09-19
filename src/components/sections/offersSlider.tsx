@@ -1,53 +1,90 @@
-'use client';
+"use client";
 
-import {useEffect, useMemo, useRef} from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {Swiper, SwiperSlide} from "swiper/react";
-import type {Swiper as SwiperType} from "swiper";
-import {Navigation} from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import axios from "axios";
+import { usePathname } from "next/navigation";
 
-import {getOfferBySlug} from "@/data/offers";
-import {useTranslations, useLocale} from "next-intl";
-import {buildOfferHref} from "@/lib/paths";
+// --- Interfaces ---
+export interface IOffer {
+  id: number;
+  name_ru: string;
+  name_en: string | null;
+  name_kk: string | null;
+  sub_title_ru: string | null;
+  sub_title_en: string | null;
+  sub_title_kk: string | null;
+  description_ru: string | null;
+  description_en: string | null;
+  description_kk: string | null;
+  medias: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
 
-type Props = { slug: string; menuId: string };
+// --- Utility Functions ---
+function getLocalizedText(
+  item: IOffer,
+  locale: string,
+  field: "name" | "sub_title" | "description"
+): string {
+  const key = `${field}_${locale}` as keyof IOffer;
+  const value = item[key];
+  return typeof value === 'string' ? value : item[`${field}_ru` as keyof IOffer] as string;
+}
 
-export default function OffersSlider({slug, menuId}: Props) {
+// --- Main Component ---
+export default function OffersSlider() {
+  const pathname = usePathname();
+
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-  const swiperRef = useRef<SwiperType | null>(null);
+
+  const [offers, setOffers] = useState<IOffer[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const locale = useLocale();
   const t = useTranslations();
-  const tOffer = useTranslations("offerItems");
+  const sectionTitle = t("offers.sectionTitle");
 
-  const sectionTitle = safeT(t, "offers.sectionTitle") ?? "Offers";
-  const slides = useMemo(() => getOfferBySlug(slug)?.images ?? [], [slug]);
+  // --- Data Fetching ---
+  useEffect(() => {
+    const fetchOffers = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get<IOffer[]>("/api/halls/");
+        setOffers(response.data);
+      } catch (error) {
+        console.error("Error fetching offers:", error);
+        setOffers([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOffers();
+  }, []);
 
-  function wireNav(sw: SwiperType, prevEl: HTMLElement, nextEl: HTMLElement) {
-    const base =
-      typeof sw.params.navigation === "object" && sw.params.navigation
-        ? sw.params.navigation
-        : {};
-    (sw.params as any).navigation = { ...base, enabled: true, prevEl, nextEl };
-    try { sw.navigation?.destroy(); } catch {}
-    sw.navigation?.init();
-    sw.navigation?.update();
+  const titleMobile = locale === "ru" ? sectionTitle.replace(" И ", " И\n ") : sectionTitle;
+
+  if (loading) {
+    return (
+      <section id="offers" className="w-full text-center py-20">
+        <div className="text-xl text-[#9b1b1b]">Загрузка данных...</div>
+      </section>
+    );
   }
 
-  useEffect(() => {
-    const sw = swiperRef.current;
-    if (!sw || !prevRef.current || !nextRef.current) return;
-    wireNav(sw, prevRef.current, nextRef.current);
-  }, [locale, slug]);
-
-  const titleMobile =
-    locale === "ru" ? sectionTitle.replace(" И ", " И\n ") : sectionTitle;
-  const offerTitle = safeT(tOffer, `${slug}.title`) ?? slug;
-  const offerSubtitle = safeT(tOffer, `${slug}.subtitle`);
+  // Check if offers exist before rendering the slider
+  if (!offers.length) {
+    return null; // Or return a message like "No offers available."
+  }
 
   return (
     <section id="offers" className="w-full">
@@ -61,85 +98,104 @@ export default function OffersSlider({slug, menuId}: Props) {
         <div className="pointer-events-none hidden md:block absolute inset-y-0 right-0 w-[49px] bg-gradient-to-l from-black/55 to-transparent" />
 
         <Swiper
-          key={locale + slug}
+          key={locale} // Key ensures Swiper re-initializes on locale change
           modules={[Navigation]}
-          navigation={{ enabled: true }}
-          onBeforeInit={(sw) => {
-            if (prevRef.current && nextRef.current) {
-              wireNav(sw, prevRef.current, nextRef.current);
+          navigation={{
+            prevEl: prevRef.current,
+            nextEl: nextRef.current,
+            enabled: offers.length > 1,
+          }}
+          onSwiper={(swiper) => {
+            // This is a more robust way to handle navigation refs
+            if (swiper.navigation) {
+              if (nextRef.current && prevRef.current) {
+                swiper.navigation.nextEl = nextRef.current;
+                swiper.navigation.prevEl = prevRef.current;
+              }
+              swiper.navigation.init();
+              swiper.navigation.update();
             }
           }}
-          onSwiper={(sw) => (swiperRef.current = sw)}
           slidesPerView="auto"
           centeredSlides
           centeredSlidesBounds
-          loop={slides.length > 1}
+          loop={offers.length > 1}
           watchOverflow={false}
           resistanceRatio={0.85}
           spaceBetween={8}
           breakpoints={{ 768: { spaceBetween: 24 }, 1024: { spaceBetween: 49 } }}
           className="offers-slider !overflow-visible"
         >
-          {slides.map(({ id, src }, idx) => (
-            <SwiperSlide
-              key={id}
-              className="!w-[calc(100vw-32px)] sm:!w-[84vw] md:!w-[78vw] lg:!w-[1000px]"
-            >
-              <Link
-                href={buildOfferHref(locale, slug, menuId)}
-                className="block group overflow-hidden"
+          {offers.map((offer, idx) => {
+            const offerTitle = getLocalizedText(offer, locale, "name");
+            const offerSubtitle = getLocalizedText(offer, locale, "sub_title");
+            const imageSrc = offer.medias?.startsWith('http') 
+              ? offer.medias 
+              : `https://api.svoy-lounge.kz${offer.medias}`;
+
+            return (
+              <SwiperSlide
+                key={offer.id}
+                className="!w-[calc(100vw-32px)] sm:!w-[84vw] md:!w-[78vw] lg:!w-[1000px]"
               >
-                <article className="relative aspect-[1000/492]">
-                  <Image
-                    src={src}
-                    alt={offerTitle}
-                    fill
-                    sizes="(min-width:1024px) 1000px, (min-width:768px) 78vw, (min-width:640px) 84vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                    priority={idx === 0}
-                  />
-                  <div className="fade-bottom absolute left-0 right-0 bottom-0 pointer-events-none z-10" />
-                  <div className="dim-all absolute inset-0 pointer-events-none z-10 transition-opacity duration-300" />
-                  <div className="absolute inset-x-0 bottom-0 z-20 px-4 pb-4 pt-10 md:px-6 md:pb-6 lg:px-8">
-                    <div className="text-white drop-shadow-sm">
-                      <div className="font-semibold leading-[1.1] text-[18px] sm:text-[20px] md:text-[24px] lg:text-[28px]">
-                        {offerTitle}
-                      </div>
-                      {offerSubtitle && (
-                        <div className="mt-1 opacity-90 text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
-                          {offerSubtitle}
+                <Link
+                  href={`/${locale}/${pathname.split('/')[2]}/offers/${offer.id}`}
+                  className="block group overflow-hidden"
+                >
+                  <article className="relative aspect-[1000/492]">
+                    <Image
+                      src={imageSrc}
+                      alt={offerTitle || "Offer image"}
+                      fill
+                      sizes="(min-width:1024px) 1000px, (min-width:768px) 78vw, (min-width:640px) 84vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                      priority={idx === 0}
+                    />
+                    <div className="fade-bottom absolute left-0 right-0 bottom-0 pointer-events-none z-10" />
+                    <div className="dim-all absolute inset-0 pointer-events-none z-10 transition-opacity duration-300" />
+                    <div className="absolute inset-x-0 bottom-0 z-20 px-4 pb-4 pt-10 md:px-6 md:pb-6 lg:px-8">
+                      <div className="text-white drop-shadow-sm">
+                        <div className="font-semibold leading-[1.1] text-[18px] sm:text-[20px] md:text-[24px] lg:text-[28px]">
+                          {offerTitle}
                         </div>
-                      )}
+                        {offerSubtitle && (
+                          <div className="mt-1 opacity-90 text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
+                            {offerSubtitle}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </Link>
-            </SwiperSlide>
-          ))}
+                  </article>
+                </Link>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
 
-      {/* Centered arrows */}
-      <div className="mt-6 flex items-center justify-center gap-4">
-        <button
-          ref={prevRef}
-          aria-label="Предыдущий"
-          className="grid place-items-center transition hover:bg-[#9b1b1b]/10 border-2 border-[#9b1b1b] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
-        >
-          <Image src="/icons/sliderGallery/slider-arrow-back.svg" alt="" width={20} height={20} className="block md:hidden" aria-hidden />
-          <Image src="/icons/sliderGallery/slider-arrow-back.svg" alt="" width={32} height={32} className="hidden md:block" aria-hidden />
-        </button>
+      {/* --- Slider Navigation --- */}
+      {offers.length > 1 && (
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <button
+            ref={prevRef}
+            aria-label="Предыдущий"
+            className="grid place-items-center transition hover:bg-[#9b1b1b]/10 border-2 border-[#9b1b1b] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
+          >
+            <Image src="/icons/sliderGallery/slider-arrow-back.svg" alt="" width={20} height={20} className="block md:hidden" aria-hidden />
+            <Image src="/icons/sliderGallery/slider-arrow-back.svg" alt="" width={32} height={32} className="hidden md:block" aria-hidden />
+          </button>
+          <button
+            ref={nextRef}
+            aria-label="Следующий"
+            className="grid place-items-center transition hover:bg-[#9b1b1b]/10 border-2 border-[#9b1b1b] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
+          >
+            <Image src="/icons/sliderGallery/slider-arrow-forward.svg" alt="" width={20} height={20} className="block md:hidden" aria-hidden />
+            <Image src="/icons/sliderGallery/slider-arrow-forward.svg" alt="" width={32} height={32} className="hidden md:block" aria-hidden />
+          </button>
+        </div>
+      )}
 
-        <button
-          ref={nextRef}
-          aria-label="Следующий"
-          className="grid place-items-center transition hover:bg-[#9b1b1b]/10 border-2 border-[#9b1b1b] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
-        >
-          <Image src="/icons/sliderGallery/slider-arrow-forward.svg" alt="" width={20} height={20} className="block md:hidden" aria-hidden />
-          <Image src="/icons/sliderGallery/slider-arrow-forward.svg" alt="" width={32} height={32} className="hidden md:block" aria-hidden />
-        </button>
-      </div>
-
+      {/* --- Component Styles --- */}
       <style jsx global>{`
         .offers-slider .fade-bottom { height: 52%; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 100%); }
         .offers-slider .dim-all { background: rgba(0,0,0,.28); }
@@ -148,10 +204,4 @@ export default function OffersSlider({slug, menuId}: Props) {
       `}</style>
     </section>
   );
-}
-
-type TFunc = (key: string) => string;
-function safeT(t: TFunc, key: string): string | undefined {
-  try { const v = t(key); return typeof v === "string" ? v : undefined; }
-  catch { return undefined; }
 }

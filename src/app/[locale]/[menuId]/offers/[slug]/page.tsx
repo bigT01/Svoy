@@ -8,9 +8,7 @@ export default function OfferPage({
 }: {
   params: { locale: string; menuId: string; slug: string };
 }) {
-  const offer = getOfferBySlug(params.slug);
-  if (!offer) notFound();
-  return <OfferPageClient offer={offer} />;
+  return <OfferPageClient/>;
 }
 
 export const dynamic = "force-dynamic";

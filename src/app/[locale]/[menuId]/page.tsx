@@ -1,9 +1,8 @@
 export const dynamic = 'force-dynamic';
-
-import { notFound } from 'next/navigation';
-import OfferPageClient from '@/components/sections/offerPageClient';
-import { getOfferBySlug } from '@/data/offers';
+import Hero from '@/components/hero/hero';
+import Container from '@/components/layout/container';
 import MenuSection from '@/components/menu/menuSection';
+import OffersSlider from '@/components/sections/offersSlider';
 import { Metadata } from 'next';
 
 export const metaData:Metadata = {
@@ -13,7 +12,15 @@ export const metaData:Metadata = {
 
 const Page = () => {
   return(
+    <>
+      <Hero />
+      <section className="bg-white py-16">
+        <Container>
+          <OffersSlider/>
+        </Container>
+      </section>
     <MenuSection/>
+    </>
   )
 }
 
