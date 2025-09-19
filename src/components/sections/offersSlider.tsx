@@ -44,6 +44,7 @@ function getLocalizedText(
 export default function OffersSlider() {
   const pathname = usePathname();
 
+  const swiperRef = useRef<SwiperType | null>(null);
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
@@ -97,7 +98,7 @@ export default function OffersSlider() {
         <div className="pointer-events-none hidden md:block absolute inset-y-0 left-0 w-[49px] bg-gradient-to-r from-black/55 to-transparent" />
         <div className="pointer-events-none hidden md:block absolute inset-y-0 right-0 w-[49px] bg-gradient-to-l from-black/55 to-transparent" />
 
-        <Swiper
+        {offers[0] && <Swiper
           key={locale} // Key ensures Swiper re-initializes on locale change
           modules={[Navigation]}
           navigation={{
@@ -106,7 +107,7 @@ export default function OffersSlider() {
             enabled: offers.length > 1,
           }}
           onSwiper={(swiper) => {
-            // This is a more robust way to handle navigation refs
+            swiperRef.current = swiper;
             if (swiper.navigation) {
               if (nextRef.current && prevRef.current) {
                 swiper.navigation.nextEl = nextRef.current;
@@ -170,15 +171,16 @@ export default function OffersSlider() {
               </SwiperSlide>
             );
           })}
-        </Swiper>
+        </Swiper>}
       </div>
 
       {/* --- Slider Navigation --- */}
-      {offers.length > 1 && (
+      {offers[0] && offers.length > 1 && (
         <div className="mt-6 flex items-center justify-center gap-4">
           <button
             ref={prevRef}
             aria-label="Предыдущий"
+            onClick={() => swiperRef.current?.slidePrev()} 
             className="grid place-items-center transition hover:bg-[#9b1b1b]/10 border-2 border-[#9b1b1b] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
           >
             <Image src="/icons/sliderGallery/slider-arrow-back.svg" alt="" width={20} height={20} className="block md:hidden" aria-hidden />
@@ -186,6 +188,7 @@ export default function OffersSlider() {
           </button>
           <button
             ref={nextRef}
+            onClick={() => swiperRef.current?.slideNext()}
             aria-label="Следующий"
             className="grid place-items-center transition hover:bg-[#9b1b1b]/10 border-2 border-[#9b1b1b] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
           >
