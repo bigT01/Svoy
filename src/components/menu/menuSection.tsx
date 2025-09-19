@@ -191,7 +191,6 @@ export default function MenuSection({
       />
 
       <div className="mt-10" />
-      'mid'
       {/* const json = [
         [2,0,1],
         [1,2,0],
