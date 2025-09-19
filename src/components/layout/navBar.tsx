@@ -143,10 +143,16 @@ export default function Navbar() {
             {/* Right: address & phone */}
             <div className="hidden md:block">
               <div className="grid grid-cols-[20px_auto] gap-x-2 gap-y-1 items-center">
+                <Link href={'https://go.2gis.com/RfM9b'} target="_blanck">
+                
                 <Image src="/icons/navbar/address-navbar.svg" alt="Адрес" width={20} height={20} />
+                </Link>
+                <Link href={'https://go.2gis.com/RfM9b'} target="_blanck">
+                
                 <span className="whitespace-nowrap text-[20px] leading-[23px]">
                   {t("address")}
                 </span>
+                </Link>
                 <Image src="/icons/navbar/phone.svg" alt="Телефон" width={20} height={20} />
                 <a
                   href={`tel:${t("phone").replace(/[^\d+]/g, "")}`}

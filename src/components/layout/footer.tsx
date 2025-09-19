@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import {useTranslations} from "next-intl";
+import Link from "next/link";
 
 type WorkRow = { label: string; time: string };
 
@@ -30,7 +31,9 @@ export default function Footer() {
               </p>
               <div className="flex items-center gap-4">
                 <Image src="/icons/footer/whatsapp.svg" alt="WhatsApp" width={24} height={24} />
-                <Image src="/icons/footer/instagram.svg" alt="Instagram" width={24} height={24} />
+                <Link href={'https://www.instagram.com/svoy.astana/'} target="_blanck">
+                  <Image src="/icons/footer/instagram.svg" alt="Instagram" width={24} height={24} />
+                </Link>
               </div>
             </section>
 
@@ -38,7 +41,10 @@ export default function Footer() {
               <h3 className="text-[24px] font-semibold leading-7 mb-3">{t("addressTitle")}</h3>
               <p className="text-[16px] leading-6">{addressText}</p>
               <div className="mt-4">
-                <Image src="/icons/footer/adress-footer.png" alt={t("addressTitle")} width={24} height={24} />
+                <Link href={'https://go.2gis.com/RfM9b'} target="_blanck">
+                  <Image src="/icons/footer/adress-footer.png" alt={t("addressTitle")} width={24} height={24} />
+                </Link>
+                
               </div>
             </section>
 
@@ -76,7 +82,10 @@ export default function Footer() {
             </p>
             <div className="mt-3 flex items-center gap-5">
               <Image src="/icons/footer/whatsapp.svg" alt="WhatsApp" width={28} height={28} />
+              <Link href={'https://www.instagram.com/svoy.astana/'} target="_blanck">
               <Image src="/icons/footer/instagram.svg" alt="Instagram" width={28} height={28} />
+              
+              </Link>
             </div>
           </section>
 
@@ -84,7 +93,10 @@ export default function Footer() {
             <h3 className="text-[26px] font-semibold leading-[34px]">{t("addressTitle")}</h3>
             <p className="mt-3 text-[18px] leading-[26px]">{addressText}</p>
             <div className="mt-3">
+              <Link href={'https://go.2gis.com/RfM9b'} target="_blanck">
               <Image src="/icons/footer/adress-footer.png" alt={t("addressTitle")} width={28} height={28} />
+              
+              </Link>
             </div>
           </section>
 
