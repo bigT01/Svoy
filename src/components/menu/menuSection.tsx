@@ -194,11 +194,11 @@ export default function MenuSection({
 
       <RenderFilters t={t} />
 
-      {/* {groups.filter((g) => g.items.length > 0).map((g, idx) => (
+      {groups.filter((g) => g.items.length > 0).map((g, idx) => (
         <div key={g.key} id={`panel-${g.key}`} role="tabpanel" aria-labelledby={`tab-${g.key}`}>
-          <MenuGroup id={`group-${g.key}`} title={g.title} items={g.items} first={idx === 0} />
+          <MenuGroup id={`group-${g.key}`} title={g.title} items={g.items}  first={idx === 0} />
         </div>
-      ))} */}
+      ))}
 
       {/* Back-to-top button */}
       <div className="mx-auto w-full max-w-[1040px] px-4 mt-8 md:hidden">

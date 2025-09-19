@@ -4,16 +4,16 @@ import Image from "next/image";
 import {useTranslations} from "next-intl";
 
 export type Dish = {
-  id: any;
-  // i18nKey: string; // The API data does not provide this
+  id: number;
   name_ru: string;
-  name_en: string;
-  name_kk: string;
-  description_ru: string;
+  name_en: string | null;
+  name_kk: string | null;
   price: string;
+  description_ru: string;
+  description_kk: string | null;
+  description_en: string | null;
   image: string;
-  icons?: string[];   // e.g. ["/icons/menu/vegan.svg", "/icons/menu/spicy.svg"]
-  frame?: boolean;
+  i18nKey?: string;
 };
 
 function iconMeta(src: string) {
@@ -56,14 +56,14 @@ export default function DishCard({
           {/* inner box positioned by the left offset (18 / 20 / 20) and sized like the frame */}
           <div className="absolute top-0 left-[18px] md:left-[20px] w-[157px] h-[157px] md:w-[170px] md:h-[170px] lg:w-[180px] lg:h-[180px] flex items-center justify-center">
             {/* frame */}
-            {dish.frame !== false && (
+            {/* {dish.frame !== false && (
               <img
                 src="/icons/menu/diagonal-frame.svg"
                 alt=""
                 className="absolute inset-0 pointer-events-none select-none"
                 draggable={false}
               />
-            )}
+            )} */}
 
             {/* circular photo centered inside the frame */}
             <div className="relative overflow-hidden rounded-full w-[130px] h-[130px] md:w-[140px] md:h-[140px] lg:w-[150px] lg:h-[150px]">
@@ -99,10 +99,10 @@ export default function DishCard({
           <div className="mt-4 md:mt-6 flex items-center justify-between">
             <div className="font-raleway font-semibold text-[#961515] leading-[1]
                             text-[20px] md:text-[22px] lg:text-[24px]">
-              {dish.price}
+              {Number(dish.price)} ₸
             </div>
 
-            {!!dish.icons?.length && (
+            {/* {!!dish.icons?.length && (
               <div className="flex items-center gap-2 md:gap-3">
                 {dish.icons.map((src, i) => {
                   const file = src.endsWith(".svg") ? src : `${src}.svg`;
@@ -119,7 +119,7 @@ export default function DishCard({
                   );
                 })}
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
