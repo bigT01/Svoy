@@ -24,7 +24,7 @@ export interface IOffer {
   description_ru: string | null;
   description_en: string | null;
   description_kk: string | null;
-  medias: string | null;
+  medias: [{id: number, file: string}] | null;
   created_at?: string;
   updated_at?: string;
 }
@@ -128,49 +128,55 @@ export default function OffersSlider() {
           className="offers-slider !overflow-visible"
         >
           {offers.map((offer, idx) => {
-            const offerTitle = getLocalizedText(offer, locale, "name");
-            const offerSubtitle = getLocalizedText(offer, locale, "sub_title");
-            const imageSrc = offer.medias?.startsWith('http') 
-              ? offer.medias 
-              : `https://api.svoy-lounge.kz${offer.medias}`;
+  const offerTitle = getLocalizedText(offer, locale, "name");
+  const offerSubtitle = getLocalizedText(offer, locale, "sub_title");
 
-            return (
-              <SwiperSlide
-                key={offer.id}
-                className="!w-[calc(100vw-32px)] sm:!w-[84vw] md:!w-[78vw] lg:!w-[1000px]"
-              >
-                <Link
-                  href={`/${locale}/${pathname.split('/')[2]}/offers/${offer.id}`}
-                  className="block group overflow-hidden"
-                >
-                  <article className="relative aspect-[1000/492]">
-                    <Image
-                      src={imageSrc}
-                      alt={offerTitle || "Offer image"}
-                      fill
-                      sizes="(min-width:1024px) 1000px, (min-width:768px) 78vw, (min-width:640px) 84vw, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                      priority={idx === 0}
-                    />
-                    <div className="fade-bottom absolute left-0 right-0 bottom-0 pointer-events-none z-10" />
-                    <div className="dim-all absolute inset-0 pointer-events-none z-10 transition-opacity duration-300" />
-                    <div className="absolute inset-x-0 bottom-0 z-20 px-4 pb-4 pt-10 md:px-6 md:pb-6 lg:px-8">
-                      <div className="text-white drop-shadow-sm">
-                        <div className="font-semibold leading-[1.1] text-[18px] sm:text-[20px] md:text-[24px] lg:text-[28px]">
-                          {offerTitle}
-                        </div>
-                        {offerSubtitle && (
-                          <div className="mt-1 opacity-90 text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
-                            {offerSubtitle}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              </SwiperSlide>
-            );
-          })}
+  // берём первую картинку
+  const firstMedia = offer.medias?.[0];
+  const imageSrc = firstMedia
+    ? firstMedia.file.startsWith("http")
+      ? firstMedia.file
+      : `https://api.svoy-lounge.kz${firstMedia.file}`
+    : "/images/placeholder.png"; // запасная картинка, если меди нет
+
+  return (
+    <SwiperSlide
+      key={offer.id}
+      className="!w-[calc(100vw-32px)] sm:!w-[84vw] md:!w-[78vw] lg:!w-[1000px]"
+    >
+      <Link
+        href={`/${locale}/${pathname.split("/")[2]}/offers/${offer.id}`}
+        className="block group overflow-hidden"
+      >
+        <article className="relative aspect-[1000/492]">
+          <Image
+            src={imageSrc}
+            alt={offerTitle || "Offer image"}
+            fill
+            sizes="(min-width:1024px) 1000px, (min-width:768px) 78vw, (min-width:640px) 84vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            priority={idx === 0}
+          />
+          <div className="fade-bottom absolute left-0 right-0 bottom-0 pointer-events-none z-10" />
+          <div className="dim-all absolute inset-0 pointer-events-none z-10 transition-opacity duration-300" />
+          <div className="absolute inset-x-0 bottom-0 z-20 px-4 pb-4 pt-10 md:px-6 md:pb-6 lg:px-8">
+            <div className="text-white drop-shadow-sm">
+              <div className="font-semibold leading-[1.1] text-[18px] sm:text-[20px] md:text-[24px] lg:text-[28px]">
+                {offerTitle}
+              </div>
+              {offerSubtitle && (
+                <div className="mt-1 opacity-90 text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
+                  {offerSubtitle}
+                </div>
+              )}
+            </div>
+          </div>
+        </article>
+      </Link>
+    </SwiperSlide>
+  );
+})}
+
         </Swiper>}
       </div>
 
