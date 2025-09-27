@@ -200,20 +200,35 @@ export default function OfferPageClient() {
             className="aspect-[412/372] md:aspect-[1040/492] w-full"
           >
             {/* {images.map((media: any, i: number) => ( */}
-              {images.map (image => (
-                <SwiperSlide key={image.id}>
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={`https://api.svoy-lounge.kz${image.file}`}
-                      alt={title || "Offer image"}
-                      fill
-                      sizes="(min-width:768px) calc(100vw - 400px), 100vw"
-                      className="object-cover"
-                      // priority={i === 0}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
+              {images.map((image, i) => {
+                const isVideo = image.file.endsWith(".mp4") || image.file.endsWith(".webm"); // или проверь через image.mime_type
+
+                return (
+                  <SwiperSlide key={image.id}>
+                    <div className="relative w-full h-full">
+                      {isVideo ? (
+                        <video
+                          src={`https://api.svoy-lounge.kz${image.file}`}
+                          className="object-cover w-full h-full"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                        />
+                      ) : (
+                        <Image
+                          src={`https://api.svoy-lounge.kz${image.file}`}
+                          alt={title || "Offer image"}
+                          fill
+                          sizes="(min-width:768px) calc(100vw - 400px), 100vw"
+                          className="object-cover"
+                          // priority={i === 0}
+                        />
+                      )}
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
               
             {/* // ))} */}
           </Swiper>
