@@ -25,7 +25,7 @@ export interface IOffer {
   description_ru: string | null;
   description_en: string | null;
   description_kk: string | null;
-  medias: string; // Changed to an array of objects
+  medias: {id: number, file: string}[]; // Changed to an array of objects
   created_at?: string;
   updated_at?: string;
 }
@@ -157,7 +157,7 @@ export default function OfferPageClient() {
   const title = getLocalizedText(offer, locale, "name");
   const subtitle = getLocalizedText(offer, locale, "sub_title");
   const content = getLocalizedText(offer, locale, "description");
-  const images = offer.medias || [];
+  const images = offer.medias;
 
   return (
     <main className="min-h-screen bg-white font-raleway md:pb-24">
@@ -200,18 +200,21 @@ export default function OfferPageClient() {
             className="aspect-[412/372] md:aspect-[1040/492] w-full"
           >
             {/* {images.map((media: any, i: number) => ( */}
-              <SwiperSlide>
-                <div className="relative w-full h-full">
-                  <Image
-                    src={`https://api.svoy-lounge.kz${images}`}
-                    alt={title || "Offer image"}
-                    fill
-                    sizes="(min-width:768px) calc(100vw - 400px), 100vw"
-                    className="object-cover"
-                    // priority={i === 0}
-                  />
-                </div>
-              </SwiperSlide>
+              {images.map (image => (
+                <SwiperSlide key={image.id}>
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={`https://api.svoy-lounge.kz${image.file}`}
+                      alt={title || "Offer image"}
+                      fill
+                      sizes="(min-width:768px) calc(100vw - 400px), 100vw"
+                      className="object-cover"
+                      // priority={i === 0}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+              
             {/* // ))} */}
           </Swiper>
 
