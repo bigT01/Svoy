@@ -11,7 +11,7 @@ export default function Hero() {
   return (
     <section id="about" className="relative w-full overflow-hidden">
       {/*Mobile (phones) */}
-      <div className="relative w-full aspect-[9/16] max-h-[92dvh] md:hidden">
+      {/* <div className="relative w-full aspect-[9/16] max-h-[92dvh] md:hidden">
         <Image
           src="/images/hero/hero-steak.jpg"
           alt=""
@@ -25,7 +25,7 @@ export default function Hero() {
         <div className="absolute inset-0 pointer-events-none">
           <HeroLangSwitch className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-[82px] z-50" />
 
-          {/* Logo + SINCE — now 239px from top */}
+          
           <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-[239px]">
             <Image
               src="/icons/logo/logo-white.svg"
@@ -49,7 +49,48 @@ export default function Hero() {
 
           <div className="absolute left-0 right-0 top-[759px] h-[35px] bg-black z-20" />
         </div>
-      </div>
+      </div> */}
+      <main className="w-full relative">
+      {/* Video 1: Bottom edge tilts down to the right */}
+      <section 
+        className="h-[293px] bg-gray-300 flex items-center justify-center text-3xl font-bold"
+        style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)' }}
+      >
+        <video 
+          autoPlay muted loop playsInline 
+          className="absolute inset-0 w-full grayscale h-full top-[-40%] object-cover"
+        >
+          <source src="/video/IMG_1359.mp4" type="video/mp4" />
+        </video>
+      </section>
+
+      {/* Video 2: Top edge matches Video 1, Bottom edge tilts up to the right */}
+      {/* We use a negative margin-top to pull it up and hide gaps */}
+      <section 
+        className="h-[394px] bg-gray-400 flex items-center justify-center text-3xl font-bold mt-[-6.3rem]"
+        style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 80%, 0 100%)' }}
+      >
+        <video 
+          autoPlay muted loop playsInline 
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/video/IMG_1401.mp4" type="video/mp4" />
+        </video>
+      </section>
+
+      {/* Video 3: Top edge matches Video 2 */}
+      <section 
+        className="h-[290px] bg-gray-200 flex items-center justify-center text-3xl font-bold -mt-20"
+        style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 100%, 0 100%)' }}
+      >
+        <video 
+          autoPlay muted loop playsInline 
+          className="absolute inset-0 w-full grayscale h-full object-cover top-[45%]"
+        >
+          <source src="/video/IMG_7084.mp4" type="video/mp4" />
+        </video>
+      </section>
+    </main>
 
       {/*Desktop / Tablet (md+)  */}
       <div className="hidden md:block relative w-full overflow-hidden">
