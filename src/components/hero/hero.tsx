@@ -6,6 +6,7 @@ import HeroLogo from "@/components/hero/heroLogo";
 import HeroButtons from "@/components/hero/heroButtons";
 import ArrowDown from "@/components/ui/arrowDown";
 import HeroLangSwitch from "@/components/hero/heroLangSwitch";
+import Video from 'next-video';
 
 export default function Hero() {
   return (
@@ -56,12 +57,13 @@ export default function Hero() {
         className="h-[293px] bg-gray-300 flex items-center justify-center text-3xl font-bold"
         style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)' }}
       >
-        <video 
+        <Video 
           autoPlay muted loop playsInline crossOrigin="anonymous"
+          src="/video/IMG_1359.mp4"
           className="absolute inset-0 w-full grayscale h-full top-[-40%] object-cover"
         >
-          <source src="https://www.svoyrestaurant.kz/video/IMG_1359.mp4" type="video/mp4" />
-        </video>
+          {/* <source  type="video/mp4" /> */}
+        </Video>
       </section>
 
       {/* Video 2: Top edge matches Video 1, Bottom edge tilts up to the right */}
@@ -70,12 +72,13 @@ export default function Hero() {
         className="h-[394px] bg-gray-400 flex items-center justify-center text-3xl font-bold mt-[-6.3rem]"
         style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 80%, 0 100%)' }}
       >
-        <video 
+        <Video 
+          src={"/video/IMG_1401.mp4"}
           autoPlay muted loop playsInline crossOrigin="anonymous"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover top-[-25%]"
         >
-          <source src="https://www.svoyrestaurant.kz/video/IMG_1401.mp4" type="video/mp4" />
-        </video>
+          
+        </Video>
       </section>
 
       {/* Video 3: Top edge matches Video 2 */}
@@ -83,13 +86,14 @@ export default function Hero() {
         className="h-[290px] bg-gray-200 flex items-center justify-center text-3xl font-bold -mt-20"
         style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 100%, 0 100%)' }}
       >
-        <video 
+        <Video 
+          src="/video/IMG_7084.mp4"
           autoPlay muted loop playsInline crossOrigin="anonymous"
           preload="metadata"
-          className="absolute inset-0 w-full grayscale h-full object-cover top-[45%]"
+          className="absolute inset-0 w-full grayscale h-full object-cover top-[-10%]"
         >
-          <source src="https://www.svoyrestaurant.kz/video/IMG_7084.mp4" type="video/mp4" />
-        </video>
+          
+        </Video>
       </section>
     </main>
 
