@@ -57,10 +57,10 @@ export default function Hero() {
         style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)' }}
       >
         <video 
-          autoPlay muted loop playsInline 
+          autoPlay muted loop playsInline crossOrigin="anonymous"
           className="absolute inset-0 w-full grayscale h-full top-[-40%] object-cover"
         >
-          <source src="/video/IMG_1359.mp4" type="video/mp4" />
+          <source src="https://www.svoyrestaurant.kz/video/IMG_1359.mp4?v=123" type="video/mp4" />
         </video>
       </section>
 
@@ -71,10 +71,10 @@ export default function Hero() {
         style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 80%, 0 100%)' }}
       >
         <video 
-          autoPlay muted loop playsInline 
+          autoPlay muted loop playsInline crossOrigin="anonymous"
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/video/IMG_1401.mp4" type="video/mp4" />
+          <source src="https://www.svoyrestaurant.kz/video/IMG_1401.mp4?v=123" type="video/mp4" />
         </video>
       </section>
 
@@ -84,10 +84,10 @@ export default function Hero() {
         style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 100%, 0 100%)' }}
       >
         <video 
-          autoPlay muted loop playsInline 
+          autoPlay muted loop playsInline crossOrigin="anonymous"
           className="absolute inset-0 w-full grayscale h-full object-cover top-[45%]"
         >
-          <source src="/video/IMG_7084.mp4" type="video/mp4" />
+          <source src="https://www.svoyrestaurant.kz/video/IMG_7084.mp4?v=123" type="video/mp4" />
         </video>
       </section>
     </main>
