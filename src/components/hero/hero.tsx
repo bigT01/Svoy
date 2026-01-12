@@ -63,6 +63,7 @@ export default function Hero() {
         <video 
           autoPlay muted loop playsInline crossOrigin="anonymous"
           // src={myBgVideo}
+          preload="metadata"
           className="absolute inset-0 w-full grayscale h-full top-[-40%] object-cover"
         >
           <source src="/video/IMG_1359.mp4" type="video/mp4" />
@@ -77,6 +78,7 @@ export default function Hero() {
       >
         <video 
           // src={myBgVideo1}
+          preload="metadata"
           autoPlay muted loop playsInline crossOrigin="anonymous"
           className="absolute inset-0 w-full h-full object-cover "
         >
