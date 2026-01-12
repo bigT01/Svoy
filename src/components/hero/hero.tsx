@@ -66,7 +66,7 @@ export default function Hero() {
           preload="metadata"
           className="absolute inset-0 w-full grayscale h-full top-[-40%] object-cover"
         >
-          <source src="/video/IMG_1359.mp4" type="video/mp4" />
+          <source src="/video/IMG_1359_fixed.mp4" type="video/mp4" />
         </video>
       </section>
 
