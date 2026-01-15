@@ -54,7 +54,7 @@ export default function Hero() {
           <div className="absolute left-0 right-0 top-[759px] h-[35px] bg-black z-20" />
         </div>
       </div> */}
-      <main className="w-full relative">
+      <main className="w-full relative md:hidden">
       {/* Video 1: Bottom edge tilts down to the right */}
       <section 
         className="h-[293px] bg-gray-300 flex items-center justify-center text-3xl font-bold"
@@ -100,6 +100,25 @@ export default function Hero() {
           <source src="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_7084.mp4" type="video/mp4" />
         </video>
       </section>
+      <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-[260px]">
+            <Image
+              src="/icons/logo/logo-white.svg"
+              alt="SVOY white logo"
+              width={240}
+              height={80}
+              priority
+            />
+            <div className="mt-2 w-[240px] h-[42px] flex items-center justify-center bg-white text-[#9b1b1b] font-extrabold uppercase text-[14px] leading-[18px] tracking-wide">
+              SINCE&nbsp;2009
+            </div>
+          </div>
+       <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 bottom-[98px]">
+            <HeroButtons variant="mobile" />
+          </div>
+
+          <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 bottom-[60px]">
+            <ArrowDown targetId="offers" offset={100} ariaLabel="Прокрутить вниз" />
+          </div>
       </main>
 
       {/*Desktop / Tablet (md+)  */}

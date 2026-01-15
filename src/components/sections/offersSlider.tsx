@@ -61,7 +61,7 @@ export default function OffersSlider() {
       try {
         setLoading(true);
         const response = await axios.get<IOffer[]>("/api/halls/");
-        setOffers(response.data);
+        setOffers(response.data.filter(offer => offer.id !== 5)); // фильтруем несуществующие предложения
       } catch (error) {
         console.error("Error fetching offers:", error);
         setOffers([]);
@@ -136,8 +136,8 @@ export default function OffersSlider() {
   const imageSrc = firstMedia
     ? firstMedia.file.startsWith("http")
       ? firstMedia.file
-      : `https://api.svoy-lounge.kz${firstMedia.file}`
-    : "/images/placeholder.png"; // запасная картинка, если меди нет
+      : `https://api.svoy-lounge.kz/services/api/v3/hall_media/${firstMedia.id}/`
+    : "/images/placeholder.jpg"; // запасная картинка, если меди нет
 
   return (
     <SwiperSlide
@@ -152,6 +152,9 @@ export default function OffersSlider() {
           <Image
             src={imageSrc}
             alt={offerTitle || "Offer image"}
+            onError={(e) => {
+              e.currentTarget.src = "/images/placeholder.jpg";
+            }}
             fill
             sizes="(min-width:1024px) 1000px, (min-width:768px) 78vw, (min-width:640px) 84vw, 100vw"
             className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
