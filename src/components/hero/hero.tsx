@@ -7,7 +7,6 @@ import HeroButtons from "@/components/hero/heroButtons";
 import ArrowDown from "@/components/ui/arrowDown";
 import HeroLangSwitch from "@/components/hero/heroLangSwitch";
 import Video from 'next-video';
-import BackgroundVideo from "./BackgroundVideo";
 // import myBgVideo from '../../../public/video/IMG_1359.mp4';
 // import myBgVideo1 from '../../../public/video/IMG_1401.mp4';
 // import myBgVideo2 from '../../../public/video/IMG_7084.mp4';
@@ -55,42 +54,52 @@ export default function Hero() {
           <div className="absolute left-0 right-0 top-[759px] h-[35px] bg-black z-20" />
         </div>
       </div> */}
-      <main className="w-full relative overflow-hidden">
-
-        {/* VIDEO 1 */}
-        <section
-          className="relative h-[293px]"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 75%, 0 100%)" }}
+      <main className="w-full relative">
+      {/* Video 1: Bottom edge tilts down to the right */}
+      <section 
+        className="h-[293px] bg-gray-300 flex items-center justify-center text-3xl font-bold"
+        style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)' }}
+      >
+        <video 
+          autoPlay muted loop playsInline crossOrigin="anonymous"
+          // src={myBgVideo}
+          preload="metadata"
+          className="absolute inset-0 w-full grayscale h-full top-[-40%] object-cover"
         >
-          <BackgroundVideo
-            src="https://api.svoy-lounge.kz/services/api/v3/hall_media/18/"
-            grayscale
-            className="top-[-40%]"
-          />
-        </section>
+          <source src="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1359.mp4" type="video/mp4" />
+        </video>
+      </section>
 
-        {/* VIDEO 2 */}
-        <section
-          className="relative h-[394px] mt-[-6.3rem]"
-          style={{ clipPath: "polygon(0 20%, 100% 0, 100% 80%, 0 100%)" }}
+      {/* Video 2: Top edge matches Video 1, Bottom edge tilts up to the right */}
+      {/* We use a negative margin-top to pull it up and hide gaps */}
+      <section 
+        className="h-[394px] bg-gray-400 flex items-center justify-center text-3xl font-bold mt-[-6.3rem]"
+        style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 80%, 0 100%)' }}
+      >
+        <video 
+          // src={myBgVideo1}
+          preload="metadata"
+          autoPlay muted loop playsInline crossOrigin="anonymous"
+          className="absolute inset-0 w-full h-full object-cover "
         >
-          <BackgroundVideo
-            src="https://api.svoy-lounge.kz/services/api/v3/hall_media/19/"
-          />
-        </section>
+          <source src="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1401.mp4" type="video/mp4" />
+        </video>
+      </section>
 
-        {/* VIDEO 3 */}
-        <section
-          className="relative h-[290px] -mt-20"
-          style={{ clipPath: "polygon(0 20%, 100% 0, 100% 100%, 0 100%)" }}
+      {/* Video 3: Top edge matches Video 2 */}
+      <section 
+        className="h-[290px] bg-gray-200 flex items-center justify-center text-3xl font-bold -mt-20"
+        style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 100%, 0 100%)' }}
+      >
+        <video 
+          // src={myBgVideo2}
+          autoPlay muted loop playsInline crossOrigin="anonymous"
+          preload="metadata"
+          className="absolute inset-0 w-full grayscale h-full object-cover top-[45%]"
         >
-          <BackgroundVideo
-            src="https://api.svoy-lounge.kz/services/api/v3/hall_media/20/"
-            grayscale
-            className="top-[45%]"
-          />
-        </section>
-
+          <source src="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_7084.mp4" type="video/mp4" />
+        </video>
+      </section>
       </main>
 
       {/*Desktop / Tablet (md+)  */}
