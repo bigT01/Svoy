@@ -26,34 +26,52 @@ export default function BackgroundVideo({
 }: BackgroundVideoProps) {
   const ref = useRef<HTMLVideoElement | null>(null);
 
+  /** register */
   useEffect(() => {
     if (!ref.current) return;
-
     registerVideo(index, ref.current);
   }, [index, registerVideo]);
 
+  /** activation / deactivation logic */
   useEffect(() => {
-    if (!ref.current) return;
+    const video = ref.current;
+    if (!video) return;
 
     if (isActive) {
-      ref.current.currentTime = 0;
-      ref.current.play().catch(() => {});
+      // ensure source exists
+      if (!video.src) {
+        video.src = src;
+      }
+
+      video.currentTime = 0;
+      video.load();
+
+      video.play().catch(() => {});
     } else {
-      ref.current.pause();
+      // 🔑 reset to poster state
+      video.pause();
+      video.currentTime = 0;
+
+      video.removeAttribute("src");
+      video.load();
     }
-  }, [isActive]);
+  }, [isActive, src]);
+
+  /** when video ends */
+  const handleEnded = () => {
+    onEnded(index);
+  };
 
   return (
     <video
       ref={ref}
-      src={src}
       muted
       playsInline
       poster={posterSrc}
       preload="metadata"
       crossOrigin="anonymous"
       onTimeUpdate={() => onTimeUpdate(index)}
-      onEnded={() => onEnded(index)}
+      onEnded={handleEnded}
       className={clsx(
         "absolute inset-0 w-full h-full object-cover transition-all duration-1000",
         isActive
