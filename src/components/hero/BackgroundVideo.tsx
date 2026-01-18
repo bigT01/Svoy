@@ -5,6 +5,7 @@ import clsx from "clsx";
 
 interface BackgroundVideoProps {
   src: string;
+  posterSrc: string;
   index: number;
   isActive: boolean;
   registerVideo: (index: number, ref: HTMLVideoElement) => void;
@@ -15,6 +16,7 @@ interface BackgroundVideoProps {
 
 export default function BackgroundVideo({
   src,
+  posterSrc,
   index,
   isActive,
   registerVideo,
@@ -47,6 +49,7 @@ export default function BackgroundVideo({
       src={src}
       muted
       playsInline
+      poster={posterSrc}
       preload="metadata"
       crossOrigin="anonymous"
       onTimeUpdate={() => onTimeUpdate(index)}

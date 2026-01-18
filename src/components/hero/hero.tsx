@@ -35,6 +35,7 @@ export default function Hero() {
       >
         <BackgroundVideo
           src={videos[0]}
+          posterSrc="/images/placeholder.jpg"
           index={0}
           isActive={activeIndex === 0}
           registerVideo={registerVideo}
@@ -52,6 +53,7 @@ export default function Hero() {
       >
         <BackgroundVideo
           src={videos[1]}
+          posterSrc="/images/placeholder.jpg"
           index={1}
           isActive={activeIndex === 1}
           registerVideo={registerVideo}
@@ -68,6 +70,7 @@ export default function Hero() {
       >
         <BackgroundVideo
           src={videos[2]}
+          posterSrc="/images/placeholder.jpg"
           index={2}
           isActive={activeIndex === 2}
           registerVideo={registerVideo}
