@@ -1,64 +1,63 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import clsx from "clsx";
 
 interface BackgroundVideoProps {
   src: string;
+  index: number;
+  isActive: boolean;
+  registerVideo: (index: number, ref: HTMLVideoElement) => void;
+  onTimeUpdate: (index: number) => void;
+  onEnded: (index: number) => void;
   className?: string;
-  grayscale?: boolean;
 }
 
 export default function BackgroundVideo({
   src,
+  index,
+  isActive,
+  registerVideo,
+  onTimeUpdate,
+  onEnded,
   className,
-  grayscale = false,
 }: BackgroundVideoProps) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isReady, setIsReady] = useState(false);
+  const ref = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    if (!ref.current) return;
 
-    const onReady = () => setIsReady(true);
+    registerVideo(index, ref.current);
+  }, [index, registerVideo]);
 
-    video.addEventListener("canplaythrough", onReady, { once: true });
+  useEffect(() => {
+    if (!ref.current) return;
 
-    return () => {
-      video.removeEventListener("canplaythrough", onReady);
-    };
-  }, []);
+    if (isActive) {
+      ref.current.currentTime = 0;
+      ref.current.play().catch(() => {});
+    } else {
+      ref.current.pause();
+    }
+  }, [isActive]);
 
   return (
-    <>
-      {/* PRELOADER */}
-      <div
-        className={clsx(
-          "absolute inset-0 z-10 bg-neutral-900 transition-opacity duration-700",
-          isReady ? "opacity-0 pointer-events-none" : "opacity-100"
-        )}
-      >
-        <div className="w-full h-full animate-pulse bg-neutral-800" />
-      </div>
-
-      {/* VIDEO */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        crossOrigin="anonymous"
-        className={clsx(
-          "absolute inset-0 w-full h-full object-cover transition-opacity duration-700",
-          grayscale && "grayscale",
-          isReady ? "opacity-100" : "opacity-0",
-          className
-        )}
-        src={src}
-      />
-    </>
+    <video
+      ref={ref}
+      src={src}
+      muted
+      playsInline
+      preload="metadata"
+      crossOrigin="anonymous"
+      onTimeUpdate={() => onTimeUpdate(index)}
+      onEnded={() => onEnded(index)}
+      className={clsx(
+        "absolute inset-0 w-full h-full object-cover transition-all duration-1000",
+        isActive
+          ? "opacity-100 filter-none"
+          : "opacity-100 grayscale brightness-50",
+        className
+      )}
+    />
   );
 }

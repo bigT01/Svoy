@@ -6,68 +6,42 @@ import HeroLogo from "@/components/hero/heroLogo";
 import HeroButtons from "@/components/hero/heroButtons";
 import ArrowDown from "@/components/ui/arrowDown";
 import HeroLangSwitch from "@/components/hero/heroLangSwitch";
-import Video from 'next-video';
-// import myBgVideo from '../../../public/video/IMG_1359.mp4';
-// import myBgVideo1 from '../../../public/video/IMG_1401.mp4';
-// import myBgVideo2 from '../../../public/video/IMG_7084.mp4';
+import { useSequentialVideos } from "./useSequentialVideos";
+import BackgroundVideo from "./BackgroundVideo";
+import { useSequentialTimelineVideos } from "./useSequentialTimelineVideos";
+
+  const videos = [
+    "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1359.mp4",
+    "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1401.mp4",
+    "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_7084.mp4",
+  ];
 
 export default function Hero() {
+  
+  const {
+  activeIndex,
+  registerVideo,
+  onTimeUpdate,
+  onEnded,
+} = useSequentialTimelineVideos(3);
   return (
     <section id="about" className="relative w-full overflow-hidden">
-      {/*Mobile (phones) */}
-      {/* <div className="relative w-full aspect-[9/16] max-h-[92dvh] md:hidden">
-        <Image
-          src="/images/hero/hero-steak.jpg"
-          alt=""
-          fill
-          priority
-          className="object-cover brightness-110"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/40" />
-
-        <div className="absolute inset-0 pointer-events-none">
-          <HeroLangSwitch className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-[82px] z-50" />
-
-          
-          <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-[239px]">
-            <Image
-              src="/icons/logo/logo-white.svg"
-              alt="SVOY white logo"
-              width={240}
-              height={80}
-              priority
-            />
-            <div className="mt-2 w-[240px] h-[42px] flex items-center justify-center bg-white text-[#9b1b1b] font-extrabold uppercase text-[14px] leading-[18px] tracking-wide">
-              SINCE&nbsp;2009
-            </div>
-          </div>
-
-          <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 bottom-[98px]">
-            <HeroButtons variant="mobile" />
-          </div>
-
-          <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 bottom-[60px]">
-            <ArrowDown targetId="offers" offset={100} ariaLabel="Прокрутить вниз" />
-          </div>
-
-          <div className="absolute left-0 right-0 top-[759px] h-[35px] bg-black z-20" />
-        </div>
-      </div> */}
       <main className="w-full relative md:hidden">
+        
       {/* Video 1: Bottom edge tilts down to the right */}
       <section 
         className="h-[293px] bg-gray-300 flex items-center justify-center text-3xl font-bold"
         style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)' }}
       >
-        <video 
-          autoPlay muted loop playsInline crossOrigin="anonymous"
-          // src={myBgVideo}
-          preload="metadata"
-          className="absolute inset-0 w-full grayscale h-full top-[-40%] object-cover"
-        >
-          <source src="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1359.mp4" type="video/mp4" />
-        </video>
+        <BackgroundVideo
+          src={videos[0]}
+          index={0}
+          isActive={activeIndex === 0}
+          registerVideo={registerVideo}
+          onTimeUpdate={onTimeUpdate}
+          onEnded={onEnded}
+          className="grayscale absolute inset-0 w-full h-full top-[-40%] object-cover"
+        />
       </section>
 
       {/* Video 2: Top edge matches Video 1, Bottom edge tilts up to the right */}
@@ -76,14 +50,15 @@ export default function Hero() {
         className="h-[394px] bg-gray-400 flex items-center justify-center text-3xl font-bold mt-[-6.3rem]"
         style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 80%, 0 100%)' }}
       >
-        <video 
-          // src={myBgVideo1}
-          preload="metadata"
-          autoPlay muted loop playsInline crossOrigin="anonymous"
+        <BackgroundVideo
+          src={videos[1]}
+          index={1}
+          isActive={activeIndex === 1}
+          registerVideo={registerVideo}
+          onTimeUpdate={onTimeUpdate}
+          onEnded={onEnded}
           className="absolute inset-0 w-full h-full object-cover "
-        >
-          <source src="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1401.mp4" type="video/mp4" />
-        </video>
+        />
       </section>
 
       {/* Video 3: Top edge matches Video 2 */}
@@ -91,14 +66,15 @@ export default function Hero() {
         className="h-[290px] bg-gray-200 flex items-center justify-center text-3xl font-bold -mt-20"
         style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 100%, 0 100%)' }}
       >
-        <video 
-          // src={myBgVideo2}
-          autoPlay muted loop playsInline crossOrigin="anonymous"
-          preload="metadata"
+        <BackgroundVideo
+          src={videos[2]}
+          index={2}
+          isActive={activeIndex === 2}
+          registerVideo={registerVideo}
+          onTimeUpdate={onTimeUpdate}
+          onEnded={onEnded}
           className="absolute inset-0 w-full grayscale h-full object-cover top-[45%]"
-        >
-          <source src="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_7084.mp4" type="video/mp4" />
-        </video>
+        />
       </section>
       <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-[260px]">
             <Image
