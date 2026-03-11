@@ -12,7 +12,7 @@ import { useSequentialTimelineVideos } from "./useSequentialTimelineVideos";
 
   const videos = [
     "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1359.mp4",
-    "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1401.mp4",
+    "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/%D0%B4%D0%B0%D0%BB%D0%B0%20%D0%B5%D1%82.%202.mp4",
     "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_7084.mp4",
   ];
 
