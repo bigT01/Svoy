@@ -7,10 +7,18 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['api.svoy-lounge.kz'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.svoy-lounge.kz",
+      },
+    ],
   },
   // In Next.js 15/16, 'experimental.turbo' moved to the root 'turbopack' key
   turbopack: {
+    // Specify the root directory explicitly to avoid picking up the home directory's lockfile
+    // @ts-ignore
+    root: process.cwd(),
     rules: {
       '*.mp4': {
         loaders: ['file-loader'],
