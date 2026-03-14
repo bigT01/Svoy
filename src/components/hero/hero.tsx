@@ -10,94 +10,94 @@ import { useSequentialVideos } from "./useSequentialVideos";
 import BackgroundVideo from "./BackgroundVideo";
 import { useSequentialTimelineVideos } from "./useSequentialTimelineVideos";
 
-  const videos = [
-    "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1359.mp4",
-    "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/%D0%B4%D0%B0%D0%BB%D0%B0%20%D0%B5%D1%82.%202.mp4",
-    "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_7084.mp4", 
-  ];
+const videos = [
+  "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/IMG_1359.mp4",
+  "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/%D0%B4%D0%B0%D0%BB%D0%B0%20%D0%B5%D1%82.%202.mp4",
+  "https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/burger_video.mp4",
+];
 
 export default function Hero() {
-  
+
   const {
-  activeIndex,
-  registerVideo,
-  onTimeUpdate,
-  onEnded,
-} = useSequentialTimelineVideos(3);
+    activeIndex,
+    registerVideo,
+    onTimeUpdate,
+    onEnded,
+  } = useSequentialTimelineVideos(3);
   return (
     <section id="about" className="relative w-full overflow-hidden">
       <main className="w-full relative md:hidden">
-        
-      {/* Video 1: Bottom edge tilts down to the right */}
-      <section 
-        className="h-[293px] bg-gray-300 flex items-center justify-center text-3xl font-bold"
-        style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)' }}
-      >
-        <BackgroundVideo
-          src={videos[0]}
-          posterSrc="/images/hero/pic-1.jpg"
-          index={0}
-          isActive={activeIndex === 0}
-          registerVideo={registerVideo}
-          onTimeUpdate={onTimeUpdate}
-          onEnded={onEnded}
-          className="grayscale absolute inset-0 w-full h-full top-[-40%] object-cover"
-        />
-      </section>
 
-      {/* Video 2: Top edge matches Video 1, Bottom edge tilts up to the right */}
-      {/* We use a negative margin-top to pull it up and hide gaps */}
-      <section 
-        className="h-[394px] bg-gray-400 flex items-center justify-center text-3xl font-bold mt-[-6.3rem]"
-        style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 80%, 0 100%)' }}
-      >
-        <BackgroundVideo
-          src={videos[1]}
-          posterSrc="/images/hero/pic-2.jpg"
-          index={1}
-          isActive={activeIndex === 1}
-          registerVideo={registerVideo}
-          onTimeUpdate={onTimeUpdate}
-          onEnded={onEnded}
-          className="absolute inset-0 w-full h-full object-cover "
-        />
-      </section>
+        {/* Video 1: Bottom edge tilts down to the right */}
+        <section
+          className="h-[293px] bg-gray-300 flex items-center justify-center text-3xl font-bold"
+          style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 100%)' }}
+        >
+          <BackgroundVideo
+            src={videos[0]}
+            posterSrc="/images/hero/pic-1.jpg"
+            index={0}
+            isActive={activeIndex === 0}
+            registerVideo={registerVideo}
+            onTimeUpdate={onTimeUpdate}
+            onEnded={onEnded}
+            className="grayscale absolute inset-0 w-full h-full top-[-40%] object-cover"
+          />
+        </section>
 
-      {/* Video 3: Top edge matches Video 2 */}
-      <section 
-        className="h-[290px] bg-gray-200 flex items-center justify-center text-3xl font-bold -mt-20"
-        style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 100%, 0 100%)' }}
-      >
-        <BackgroundVideo
-          src={videos[2]}
-          posterSrc="/images/hero/pic-3.jpg"
-          index={2}
-          isActive={activeIndex === 2}
-          registerVideo={registerVideo}
-          onTimeUpdate={onTimeUpdate}
-          onEnded={onEnded}
-          className="absolute inset-0 w-full grayscale h-full object-cover top-[45%]"
-        />
-      </section>
-      <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-[260px]">
-            <Image
-              src="/icons/logo/logo-white.svg"
-              alt="SVOY white logo"
-              width={240}
-              height={80}
-              priority
-            />
-            <div className="mt-2 w-[240px] h-[42px] flex items-center justify-center bg-white text-[#9b1b1b] font-extrabold uppercase text-[14px] leading-[18px] tracking-wide">
-              SINCE&nbsp;2009
-            </div>
-          </div>
-       <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 bottom-[98px]">
-            <HeroButtons variant="mobile" />
-          </div>
+        {/* Video 2: Top edge matches Video 1, Bottom edge tilts up to the right */}
+        {/* We use a negative margin-top to pull it up and hide gaps */}
+        <section
+          className="h-[394px] bg-gray-400 flex items-center justify-center text-3xl font-bold mt-[-6.3rem]"
+          style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 80%, 0 100%)' }}
+        >
+          <BackgroundVideo
+            src={videos[1]}
+            posterSrc="/images/hero/pic-2.jpg"
+            index={1}
+            isActive={activeIndex === 1}
+            registerVideo={registerVideo}
+            onTimeUpdate={onTimeUpdate}
+            onEnded={onEnded}
+            className="absolute inset-0 w-full h-full object-cover "
+          />
+        </section>
 
-          <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 bottom-[60px]">
-            <ArrowDown targetId="offers" offset={100} ariaLabel="Прокрутить вниз" />
+        {/* Video 3: Top edge matches Video 2 */}
+        <section
+          className="h-[290px] bg-gray-200 flex items-center justify-center text-3xl font-bold -mt-20"
+          style={{ clipPath: 'polygon(0 20%, 100% 0, 100% 100%, 0 100%)' }}
+        >
+          <BackgroundVideo
+            src={videos[2]}
+            posterSrc="/images/hero/pic-4.jpg"
+            index={2}
+            isActive={activeIndex === 2}
+            registerVideo={registerVideo}
+            onTimeUpdate={onTimeUpdate}
+            onEnded={onEnded}
+            className="absolute inset-0 w-full grayscale h-full object-cover top-[45%]"
+          />
+        </section>
+        <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-[260px]">
+          <Image
+            src="/icons/logo/logo-white.svg"
+            alt="SVOY white logo"
+            width={240}
+            height={80}
+            priority
+          />
+          <div className="mt-2 w-[240px] h-[42px] flex items-center justify-center bg-white text-[#9b1b1b] font-extrabold uppercase text-[14px] leading-[18px] tracking-wide">
+            SINCE&nbsp;2009
           </div>
+        </div>
+        <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 bottom-[98px]">
+          <HeroButtons variant="mobile" />
+        </div>
+
+        <div className="pointer-events-auto absolute left-1/2 -translate-x-1/2 bottom-[60px]">
+          <ArrowDown targetId="offers" offset={100} ariaLabel="Прокрутить вниз" />
+        </div>
       </main>
 
       {/*Desktop / Tablet (md+)  */}
