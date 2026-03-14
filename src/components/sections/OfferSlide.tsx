@@ -29,9 +29,9 @@ function OfferSlide({
   const offerSubtitle = getLocalizedText(offer, locale, "sub_title");
 
   const getImageSrc = (media: any) => {
-    if (!media) return "/images/placeholder.jpg";
-    if (media.file?.startsWith("http")) return media.file;
-    return `https://api.svoy-lounge.kz/resource/halls/media/${media.file}/`;
+    if (!media || !media.file) return "/images/placeholder.jpg";
+    if (media.file.startsWith("http")) return media.file;
+    return `https://api.svoy-lounge.kz${media.file}`;
   };
 
   const firstMedia = offer.medias?.[0];

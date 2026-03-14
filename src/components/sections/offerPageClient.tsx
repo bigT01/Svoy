@@ -25,7 +25,7 @@ export interface IOffer {
   description_ru: string | null;
   description_en: string | null;
   description_kk: string | null;
-  medias: {id: number, file: string}[]; // Changed to an array of objects
+  medias: { id: number, file: string }[]; // Changed to an array of objects
   created_at?: string;
   updated_at?: string;
 }
@@ -127,15 +127,15 @@ export default function OfferPageClient() {
           locale === "ru"
             ? "Ссылка скопирована в буфер обмена"
             : locale === "kz"
-            ? "Сілтеме буферге көшірілді"
-            : "Link copied to clipboard"
+              ? "Сілтеме буферге көшірілді"
+              : "Link copied to clipboard"
         );
       } else {
         window.location.href = `mailto:?subject=${encodeURIComponent(
           shareData.title
         )}&body=${encodeURIComponent(shareData.url)}`;
       }
-    } catch {}
+    } catch { }
   }, [offer, locale]);
 
   if (loading) {
@@ -200,36 +200,36 @@ export default function OfferPageClient() {
             className="aspect-[412/372] md:aspect-[1040/492] w-full"
           >
             {/* {images.map((media: any, i: number) => ( */}
-              {images.map((image, i) => {
-                const isVideo = image.file.endsWith(".mp4") || image.file.endsWith(".webm"); // или проверь через image.mime_type
+            {images.map((image, i) => {
+              const isVideo = image.file.endsWith(".mp4") || image.file.endsWith(".webm"); // или проверь через image.mime_type
 
-                return (
-                  <SwiperSlide key={image.id}>
-                    <div className="relative w-full h-full">
-                      {isVideo ? (
-                        <video
-                          src={`https://api.svoy-lounge.kz${image.file}`}
-                          className="object-cover w-full h-full"
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                        />
-                      ) : (
-                        <Image
-                          src={`https://api.svoy-lounge.kz${image.file}`}
-                          alt={title || "Offer image"}
-                          fill
-                          sizes="(min-width:768px) calc(100vw - 400px), 100vw"
-                          className="object-cover"
-                          // priority={i === 0}
-                        />
-                      )}
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
-              
+              return (
+                <SwiperSlide key={image.id}>
+                  <div className="relative w-full h-full">
+                    {isVideo ? (
+                      <video
+                        src={`https://api.svoy-lounge.kz${image.file}`}
+                        className="object-cover w-full h-full"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    ) : (
+                      <Image
+                        src={`https://api.svoy-lounge.kz${image.file}`}
+                        alt={title || "Offer image"}
+                        fill
+                        sizes="(min-width:768px) calc(100vw - 400px), 100vw"
+                        className="object-cover"
+                      // priority={i === 0}
+                      />
+                    )}
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+
             {/* // ))} */}
           </Swiper>
 
