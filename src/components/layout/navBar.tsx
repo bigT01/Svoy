@@ -98,7 +98,7 @@ export default function Navbar() {
           showMobileBar
             ? "translate-y-0 opacity-100 pointer-events-auto"
             : "-translate-y-full opacity-0 pointer-events-none"
-        } bg-white border-b-[3px] border-[#9b1b1b]`}
+        } bg-white border-b-[3px] border-[#6E2525]`}
       >
         <div className="relative h-[96px] w-full">
           <Link
@@ -115,7 +115,7 @@ export default function Navbar() {
       </div>
 
       {/* Desktop / Tablet bar */}
-      <div className="hidden md:block bg-white border-b-[3px] border-[#9b1b1b]">
+      <div className="hidden md:block bg-white border-b-[3px] border-[#6E2525]">
         <Container>
           <div className="h-[96px] flex items-center justify-between">
             {/* Left: logo */}

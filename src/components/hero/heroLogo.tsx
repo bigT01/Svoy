@@ -15,7 +15,7 @@ export default function HeroLogo() {
       />
       <div
         className="mt-[6.11%] w-full h-[59px] min-h-[42px] flex items-center justify-center
-                   bg-white text-[#9b1b1b] font-extrabold uppercase
+                   bg-white text-[#6E2525] font-extrabold uppercase
                    px-[44px] text-[clamp(14px,1.7vw,26px)]"
       >
         SINCE&nbsp;2009

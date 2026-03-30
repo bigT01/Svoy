@@ -46,7 +46,7 @@ export default function Categories({items, activeIndex, onChange, className}: Pr
         <div
           className="
             inline-flex h-[63px] items-stretch
-            border border-[#961515] divide-x divide-[#961515] bg-white
+            border border-[#6E2525] divide-x divide-[#6E2525] bg-white
             xl:mx-auto
           "
         >
@@ -64,7 +64,7 @@ export default function Categories({items, activeIndex, onChange, className}: Pr
                   // first has 38px, others 34px
                   "first:px-[38px] px-[34px]",
                   "text-[18px] md:text-[20px] leading-none",
-                  isActive ? "bg-[#961515] text-white" : "bg-white text-[#961515]"
+                  isActive ? "bg-[#6E2525] text-white" : "bg-white text-[#6E2525]"
                 )}
               >
                 {label}

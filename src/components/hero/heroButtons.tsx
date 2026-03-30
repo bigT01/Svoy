@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import MenuDownloadPopup from "@/components/menu/menuDownloadPopup";
 
 type Props = { variant?: "mobile" | "desktop" };
 
@@ -39,6 +40,7 @@ function SmoothScroll({
 export default function HeroButtons({ variant = "desktop" }: Props) {
   const t = useTranslations("hero.buttons");
   const isMobile = variant === "mobile";
+  const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
 
   // widen the mobile download button and reduce its horizontal padding
   const dlW = isMobile ? "w-[226px]" : "w-[226px]";
@@ -51,10 +53,8 @@ export default function HeroButtons({ variant = "desktop" }: Props) {
   return (
     <div className={`flex flex-col items-center ${isMobile ? "gap-[16px]" : "gap-[24px]"}`}>
       {/* DOWNLOAD */}
-      <Link
-        href="/menu/menu.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        onClick={() => setIsMenuPopupOpen(true)}
         className={[
           "flex items-center justify-center rounded-[2px] border font-semibold",
           // text sizes: 16 mobile / 18 tablet / 20 desktop (if you're already doing this elsewhere, keep it)
@@ -70,7 +70,9 @@ export default function HeroButtons({ variant = "desktop" }: Props) {
         }}
       >
         {t("download")}
-      </Link>
+      </button>
+
+      <MenuDownloadPopup isOpen={isMenuPopupOpen} onClose={() => setIsMenuPopupOpen(false)} />
 
       {/* VIEW ONLINE */}
       <SmoothScroll
@@ -80,7 +82,7 @@ export default function HeroButtons({ variant = "desktop" }: Props) {
           "text-[16px] md:text-[18px] lg:text-[20px] leading-[20px]",
           "whitespace-nowrap", // keep on one line just in case
           viewW, viewH, pxX, pyY,
-          "bg-white text-[#9b1b1b] border-[#9b1b1b]",
+          "bg-white text-[#6E2525] border-[#6E2525]",
           "shadow-[0_0_12px_0_rgba(0,0,0,0.75)]",
         ].join(" ")}
       >

@@ -16,7 +16,7 @@ export default function ToggleSwitch({ id, checked, onChange }: Props) {
       className={[
         "relative inline-flex items-center",
         "w-[44px] h-[24px] rounded-full transition-colors",
-        checked ? "bg-[#961515]" : "bg-neutral-300",
+        checked ? "bg-[#6E2525]" : "bg-neutral-300",
       ].join(" ")}
     >
       <span

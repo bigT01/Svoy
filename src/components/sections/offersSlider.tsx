@@ -68,7 +68,7 @@ export default function OffersSlider() {
   if (loading) {
     return (
       <section id="offers" className="w-full text-center py-20">
-        <div className="text-xl text-[#9b1b1b]">Загрузка данных...</div>
+        <div className="text-xl text-[#6E2525]">Загрузка данных...</div>
       </section>
     );
   }
@@ -80,7 +80,7 @@ export default function OffersSlider() {
 
   return (
     <section id="offers" className="w-full">
-      <h2 className="text-[24px] md:text-[40px] font-bold text-[#9b1b1b] mb-6 md:whitespace-nowrap">
+      <h2 className="text-[24px] md:text-[40px] font-bold text-[#6E2525] mb-6 md:whitespace-nowrap">
         <span className="md:hidden whitespace-pre-line">{titleMobile}</span>
         <span className="hidden md:inline">{sectionTitle}</span>
       </h2>
@@ -107,7 +107,7 @@ export default function OffersSlider() {
             ref={prevRef}
             aria-label="Предыдущий"
             onClick={() => swiperRef.current?.slidePrev()} 
-            className="grid place-items-center transition hover:bg-[#9b1b1b]/10 border-2 border-[#9b1b1b] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
+            className="grid place-items-center transition hover:bg-[#6E2525]/10 border-2 border-[#6E2525] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
           >
             <Image src="/icons/sliderGallery/slider-arrow-back.svg" alt="" width={20} height={20} className="block md:hidden" aria-hidden />
             <Image src="/icons/sliderGallery/slider-arrow-back.svg" alt="" width={32} height={32} className="hidden md:block" aria-hidden />
@@ -116,7 +116,7 @@ export default function OffersSlider() {
             ref={nextRef}
             onClick={() => swiperRef.current?.slideNext()}
             aria-label="Следующий"
-            className="grid place-items-center transition hover:bg-[#9b1b1b]/10 border-2 border-[#9b1b1b] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
+            className="grid place-items-center transition hover:bg-[#6E2525]/10 border-2 border-[#6E2525] rounded-[6px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
           >
             <Image src="/icons/sliderGallery/slider-arrow-forward.svg" alt="" width={20} height={20} className="block md:hidden" aria-hidden />
             <Image src="/icons/sliderGallery/slider-arrow-forward.svg" alt="" width={32} height={32} className="hidden md:block" aria-hidden />

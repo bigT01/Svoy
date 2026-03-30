@@ -141,7 +141,7 @@ export default function OfferPageClient() {
   if (loading) {
     return (
       <main className="min-h-screen bg-white font-raleway flex items-center justify-center">
-        <p className="text-xl text-[#961515]">Загрузка...</p>
+        <p className="text-xl text-[#6E2525]">Загрузка...</p>
       </main>
     );
   }
@@ -149,7 +149,7 @@ export default function OfferPageClient() {
   if (!offer) {
     return (
       <main className="min-h-screen bg-white font-raleway flex items-center justify-center">
-        <p className="text-xl text-[#961515]">Предложение не найдено.</p>
+        <p className="text-xl text-[#6E2525]">Предложение не найдено.</p>
       </main>
     );
   }
@@ -168,9 +168,9 @@ export default function OfferPageClient() {
         <Link
           href={pathname.split('/').slice(0, -2).join('/')}
           aria-label={tDetail("back")}
-          className="inline-flex items-center gap-3 h-[40px] mb-8 text-[#961515]"
+          className="inline-flex items-center gap-3 h-[40px] mb-8 text-[#6E2525]"
         >
-          <span className="grid place-items-center w-10 h-10 border-2 border-[#961515]">
+          <span className="grid place-items-center w-10 h-10 border-2 border-[#6E2525]">
             <Image src="/icons/vip/red-arrow-back.svg" alt="" width={32} height={32} priority />
           </span>
           <span className="font-inter font-semibold text-[24px] leading-[24px]">
@@ -242,7 +242,7 @@ export default function OfferPageClient() {
             ref={prevRef}
             onClick={() => swiperRef.current?.slidePrev()}
             aria-label="Prev"
-            className="hidden md:grid place-items-center absolute left-[24px] top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white border-2 border-[#961515]"
+            className="hidden md:grid place-items-center absolute left-[24px] top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white border-2 border-[#6E2525]"
           >
             <Image src="/icons/vip/scroll-back.svg" alt="" width={18} height={18} />
           </button>
@@ -250,7 +250,7 @@ export default function OfferPageClient() {
             ref={nextRef}
             onClick={() => swiperRef.current?.slideNext()}
             aria-label="Next"
-            className="hidden md:grid place-items-center absolute right-[24px] top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white border-2 border-[#961515]"
+            className="hidden md:grid place-items-center absolute right-[24px] top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white border-2 border-[#6E2525]"
           >
             <Image src="/icons/vip/scroll-forward.svg" alt="" width={18} height={18} />
           </button>
@@ -268,7 +268,7 @@ export default function OfferPageClient() {
             {/* Share (desktop) */}
             <button
               onClick={onShare}
-              className="hidden md:inline-flex items-center justify-center gap-3 min-w-[210px] h-[50px] border-2 border-[#961515] text-[#961515] px-4"
+              className="hidden md:inline-flex items-center justify-center gap-3 min-w-[210px] h-[50px] border-2 border-[#6E2525] text-[#6E2525] px-4"
             >
               <Image src="/icons/vip/share-red.svg" alt="" width={20} height={20} />
               <span className="font-inter font-medium whitespace-nowrap text-[24px] leading-[24px]">
@@ -305,7 +305,7 @@ export default function OfferPageClient() {
           <div>
             <button
               onClick={() => setOpen(true)}
-              className="mt-12 md:mt-16 w-[364px] md:w-full max-w-full h-[51px] rounded-sm bg-[#961515] text-white px-[40px] py-[16px] text-[18px] leading-[100%] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.15)]"
+              className="mt-12 md:mt-16 w-[364px] md:w-full max-w-full h-[51px] rounded-sm bg-[#6E2525] text-white px-[40px] py-[16px] text-[18px] leading-[100%] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.15)]"
             >
               {bookLabel}
             </button>

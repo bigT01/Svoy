@@ -23,7 +23,7 @@ export default function MenuGroup({
       ].join(" ")}
     >
       <h3 id={id ? `${id}-title` : undefined}
-          className="font-raleway font-bold text-[#961515] text-[22px] tb:text-[26px] lg:text-[28px] leading-[1.1]">
+          className="font-raleway font-bold text-[#6E2525] text-[22px] tb:text-[26px] lg:text-[28px] leading-[1.1]">
         {title}
       </h3>
 

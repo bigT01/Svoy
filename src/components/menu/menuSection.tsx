@@ -168,7 +168,7 @@ export default function MenuSection({
   if (loading) {
     return (
       <section id="menu" className="w-full h-96 flex items-center justify-center bg-white">
-        <p className="text-xl font-raleway font-bold text-[#961515]">Загрузка меню...</p>
+        <p className="text-xl font-raleway font-bold text-[#6E2525]">Загрузка меню...</p>
       </section>
     );
   }
@@ -176,7 +176,7 @@ export default function MenuSection({
   return (
     <section id="menu" className="w-full bg-white overflow-x-hidden">
       <div className="mx-auto w-full max-w-[1040px] px-4">
-        <h2 className="pt-8 lg:pt-12 font-raleway font-bold uppercase text-[#961515] text-[28px] lg:text-[40px] leading-[1]">
+        <h2 className="pt-8 lg:pt-12 font-raleway font-bold uppercase text-[#6E2525] text-[28px] lg:text-[40px] leading-[1]">
           {menu ? getLocalizedText(menu, locale, "title") : t("menu.title")} {/* Use localized title */}
         </h2>
       </div>
@@ -213,7 +213,7 @@ export default function MenuSection({
             type="button"
             onClick={scrollToMenu}
             aria-label="Back to menu"
-            className="ml-auto mr-6 h-14 w-14 bg-[#961515] text-white flex items-center justify-center"
+            className="ml-auto mr-6 h-14 w-14 bg-[#6E2525] text-white flex items-center justify-center"
           >
             <svg viewBox="0 0 24 24" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
               <path d="M6 14l6-6 6 6" />
@@ -238,7 +238,7 @@ const RenderTabs = ({ groups, active, scrollToGroup, setBtnRef }: any) => {
             "relative flex items-stretch h-[56px] lg:h-[63px]",
             "overflow-x-auto overflow-y-hidden lg:overflow-x-visible",
             "snap-x snap-mandatory",
-            "border border-[#961515] bg-white",
+            "border border-[#6E2525] bg-white",
             "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           )}
         >
@@ -255,9 +255,9 @@ const RenderTabs = ({ groups, active, scrollToGroup, setBtnRef }: any) => {
                 "flex-none snap-start flex items-center h-[56px] lg:h-[63px]",
                 "px-6 lg:px-[34px]",
                 i === 0 ? "border-0" : "border-l",
-                "border-[#961515]",
+                "border-[#6E2525]",
                 "text-[16px] lg:text-[20px] leading-none",
-                i === active ? "bg-[#961515] text-white" : "bg-white text-[#961515]"
+                i === active ? "bg-[#6E2525] text-white" : "bg-white text-[#6E2525]"
               )}
             >
               {g.title}
@@ -274,7 +274,7 @@ const RenderFilters = ({ t }: { t: any }) => {
     <div className="w-full">
       <div className="mx-auto w-full lg:max-w-[772px]">
         <div className="overflow-x-auto px-4 whitespace-nowrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="inline-flex items-stretch bg-white border border-[#961515] divide-x divide-[#961515] lg:mx-auto">
+          <div className="inline-flex items-stretch bg-white border border-[#6E2525] divide-x divide-[#6E2525] lg:mx-auto">
             <FilterToggle label={t("menu.filters.vegOnly")} />
             <FilterToggle label={t("menu.filters.noSpicy")} />
           </div>
@@ -299,7 +299,7 @@ function FilterToggle({ label }: { label: string }) {
       <span
         className={cx(
           "font-raleway font-medium text-[14px] leading-[1] transition-opacity",
-          checked ? "text-[#961515] opacity-100" : "text-[#961515] opacity-50"
+          checked ? "text-[#6E2525] opacity-100" : "text-[#6E2525] opacity-50"
         )}
       >
         {label}

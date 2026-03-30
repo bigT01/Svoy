@@ -21,7 +21,7 @@ export default function Footer() {
   return (
     <footer id="site-footer" className="w-full text-white">
       {/* Desktop / Tablet */}
-      <div className="hidden md:block bg-[#820A0A]">
+      <div className="hidden md:block bg-[#6E2525]">
         <div className="relative mx-auto max-w-[1440px] h-[634px] px-8 pt-[72px]">
           <div className="grid grid-cols-3 gap-8">
             <section className="w-[192px] h-[130px]">
@@ -64,7 +64,7 @@ export default function Footer() {
                 alt="SVOY" width={254} height={120}
                 className="w-[254px] h-[120px] object-contain" priority
               />
-              <div className="mt-[12px] inline-flex items-center justify-center w-[254px] h-[50px] px-[10px] py-[6px] gap-[10px] bg-white text-[#820A0A] rounded-none font-extrabold uppercase text-[24px] leading-none">
+              <div className="mt-[12px] inline-flex items-center justify-center w-[254px] h-[50px] px-[10px] py-[6px] gap-[10px] bg-white text-[#6E2525] rounded-none font-extrabold uppercase text-[24px] leading-none">
                 SINCE 2009
               </div>
             </div>
@@ -75,7 +75,7 @@ export default function Footer() {
       </div>
 
       {/* Mobile */}
-      <div className="md:hidden bg-[#820A0A]">
+      <div className="md:hidden bg-[#6E2525]">
         <div className="px-5 pt-8 pb-0 flex flex-col gap-10">
           <section>
             <h3 className="text-[26px] font-semibold leading-[34px]">{t("contacts")}</h3>
@@ -116,7 +116,7 @@ export default function Footer() {
           <div className="mt-10 ml-1 mb-[36px]">
             <div className="w-[155px] h-[139px] flex flex-col">
               <Image src="/icons/logo/logo-white.svg" alt="SVOY" width={155} height={96} className="w-[155px] h-[96px] object-contain" />
-              <div className="mt-[12px] w-[155px] h-[31px] px-[10px] py-[6px] inline-flex items-center justify-center bg-white text-[#820A0A] rounded-none font-extrabold uppercase text-[14px] leading-none">
+              <div className="mt-[12px] w-[155px] h-[31px] px-[10px] py-[6px] inline-flex items-center justify-center bg-white text-[#6E2525] rounded-none font-extrabold uppercase text-[14px] leading-none">
                 SINCE 2009
               </div>
             </div>

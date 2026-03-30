@@ -21,7 +21,7 @@ function iconMeta(src: string) {
   const spicy = src.includes("spicy");
   return {
     name: vegan ? "vegan" : spicy ? "spicy" : "icon",
-    bg: vegan ? "#1E9E31" : spicy ? "#941A1A" : "transparent",
+    bg: vegan ? "#1E9E31" : spicy ? "#6E2525" : "transparent",
   };
 }
 
@@ -83,21 +83,21 @@ export default function DishCard({
         {/* ========= CONTENT ========= */}
         <div className="min-w-0 md:max-w-[478px] lg:max-w-[720px]">
           {!!title && (
-            <h3 className="font-raleway font-semibold uppercase text-[#961515] leading-[1]
+            <h3 className="font-raleway font-semibold uppercase text-[#6E2525] leading-[1]
                            text-[20px] md:text-[26px] lg:text-[28px]">
               {title}
             </h3>
           )}
 
           {!!desc && (
-            <p className="mt-3 text-[#961515] leading-[1] text-[14px] md:text-[16px]">
+            <p className="mt-3 text-[#6E2525] leading-[1] text-[14px] md:text-[16px]">
               {desc}
             </p>
           )}
 
           {/* Price + Icons (always one line) */}
           <div className="mt-4 md:mt-6 flex items-center justify-between">
-            <div className="font-raleway font-semibold text-[#961515] leading-[1]
+            <div className="font-raleway font-semibold text-[#6E2525] leading-[1]
                             text-[20px] md:text-[22px] lg:text-[24px]">
               {Number(dish.price)} ₸
             </div>
@@ -142,7 +142,7 @@ export default function DishCard({
 //       <span
 //         className={cx(
 //           "font-raleway font-medium text-[14px] leading-[1] transition-opacity",
-//           checked ? "text-[#961515] opacity-100" : "text-[#961515] opacity-50"
+//           checked ? "text-[#6E2525] opacity-100" : "text-[#6E2525] opacity-50"
 //         )}
 //       >
 //         {label}

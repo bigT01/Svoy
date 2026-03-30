@@ -87,7 +87,7 @@ export default function Hero() {
             height={80}
             priority
           />
-          <div className="mt-2 w-[240px] h-[42px] flex items-center justify-center bg-white text-[#9b1b1b] font-extrabold uppercase text-[14px] leading-[18px] tracking-wide">
+          <div className="mt-2 w-[240px] h-[42px] flex items-center justify-center bg-white text-[#6E2525] font-extrabold uppercase text-[14px] leading-[18px] tracking-wide">
             SINCE&nbsp;2009
           </div>
         </div>

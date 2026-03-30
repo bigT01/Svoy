@@ -50,8 +50,8 @@ export default function Modal({ onClose }: ModalProps) {
           {/* Call */}
           <a
             href="tel:+77770900333"
-            className="h-[56px] md:h-[64px] w-full rounded-sm bg-white text-[#961515]
-                       border-2 border-[#961515] flex items-center justify-center gap-3 md:gap-4
+            className="h-[56px] md:h-[64px] w-full rounded-sm bg-white text-[#6E2525]
+                       border-2 border-[#6E2525] flex items-center justify-center gap-3 md:gap-4
                        font-raleway font-medium text-[18px] leading-[100%] md:text-[20px]"
           >
             <Image src="/icons/navbar/phone.svg" alt="" width={24} height={24} />
