@@ -89,15 +89,26 @@ export default function OffersSlider() {
         <div className="pointer-events-none hidden md:block absolute inset-y-0 left-0 w-[49px] bg-gradient-to-r from-black/55 to-transparent" />
         <div className="pointer-events-none hidden md:block absolute inset-y-0 right-0 w-[49px] bg-gradient-to-l from-black/55 to-transparent" />
 
-        {offers.map((offer, idx) => (
-          <OfferSlide
-            key={offer.id}
-            offer={offer}
-            locale={locale}
-            pathname={pathname}
-            priority={idx === 0}
-          />
-        ))}
+        <Swiper
+          modules={[Navigation]}
+          onSwiper={(sw) => (swiperRef.current = sw)}
+          slidesPerView="auto"
+          spaceBetween={16}
+          loop={offers.length > 1}
+          centeredSlides={true}
+          className="offers-slider"
+        >
+          {offers.map((offer, idx) => (
+            <SwiperSlide key={offer.id} className="!w-[calc(100vw-32px)] sm:!w-[84vw] md:!w-[78vw] lg:!w-[1000px]">
+              <OfferSlide
+                offer={offer}
+                locale={locale}
+                pathname={pathname}
+                priority={idx === 0}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
       {/* --- Slider Navigation --- */}

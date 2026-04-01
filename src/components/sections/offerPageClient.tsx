@@ -204,7 +204,7 @@ export default function OfferPageClient() {
               const isVideo = image.file.endsWith(".mp4") || image.file.endsWith(".webm"); // или проверь через image.mime_type
 
               return (
-                <SwiperSlide key={image.id}>
+                <SwiperSlide key={image.id} className="!w-full">
                   <div className="relative w-full h-full">
                     {isVideo ? (
                       <video
@@ -222,7 +222,6 @@ export default function OfferPageClient() {
                         fill
                         sizes="(min-width:768px) calc(100vw - 400px), 100vw"
                         className="object-cover"
-                      // priority={i === 0}
                       />
                     )}
                   </div>

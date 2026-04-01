@@ -5,10 +5,12 @@ import {useTranslations} from "next-intl";
 
 export type Dish = {
   id: number;
+  name?: string;
   name_ru: string;
   name_en: string | null;
   name_kk: string | null;
   price: string;
+  description?: string;
   description_ru: string;
   description_kk: string | null;
   description_en: string | null;
@@ -29,9 +31,9 @@ export default function DishCard({
   dish,
   showTopDivider = false
 }: { dish: Dish; showTopDivider?: boolean }) {
-  // Use the name_ru and description_ru properties directly, without i18n
-  const title = dish.name_ru;
-  const desc  = dish.description_ru;
+  // Use the name and description properties directly, with fallback to name_ru/description_ru
+  const title = dish.name || dish.name_ru;
+  const desc  = dish.description || dish.description_ru;
 
   return (
     <article

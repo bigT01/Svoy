@@ -33,16 +33,16 @@ export default function MenuDownloadPopup({ isOpen, onClose }: Props) {
   const content = (
     <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center p-4">
       {/* Backdrop */}
-      <div 
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm" 
+      <div
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
         onClick={onClose}
       />
-      
+
       {/* Modal Content */}
       <div className="relative z-10 w-full max-w-[400px] bg-white rounded-lg shadow-2xl overflow-hidden flex flex-col animate-in fade-in zoom-in duration-200">
         <div className="flex items-center justify-between p-5 border-b border-gray-100">
           <h2 className="text-xl font-bold text-[#6E2525] font-raleway uppercase tracking-tight">Скачать меню</h2>
-          <button 
+          <button
             onClick={onClose}
             className="p-2 -mr-2 text-gray-400 hover:text-[#6E2525] transition-colors"
             aria-label="Close"
@@ -53,7 +53,7 @@ export default function MenuDownloadPopup({ isOpen, onClose }: Props) {
             </svg>
           </button>
         </div>
-        
+
         <div className="p-6 flex flex-col gap-4 bg-gray-50/50">
           <Link
             href="/menu/menu.pdf"
@@ -62,9 +62,9 @@ export default function MenuDownloadPopup({ isOpen, onClose }: Props) {
             onClick={onClose}
             className="flex items-center justify-center w-full h-[58px] rounded-md border-2 border-[#6E2525] bg-white text-[#6E2525] font-bold text-[18px] hover:bg-[#6E2525] hover:text-white transition-all active:scale-[0.98]"
           >
-            меню 1
+            Основное меню
           </Link>
-          
+
           <Link
             href="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/menu.pdf"
             target="_blank"
@@ -72,7 +72,7 @@ export default function MenuDownloadPopup({ isOpen, onClose }: Props) {
             onClick={onClose}
             className="flex items-center justify-center w-full h-[58px] rounded-md border-2 border-[#6E2525] bg-white text-[#6E2525] font-bold text-[18px] hover:bg-[#6E2525] hover:text-white transition-all active:scale-[0.98]"
           >
-            меню 2
+            Барное меню
           </Link>
 
           <Link

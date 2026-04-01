@@ -125,9 +125,11 @@ export default function MenuSection({
   const groups = useMemo(() => {
     if (!categories || !allDishes || !menu) return [];
 
-    const menuCategories = categories.filter((cat) =>
-      menu.categories.includes(cat.id)
-    );
+    // If the backend specifies categories for this menu, filter by them.
+    // Otherwise, fallback to displaying all categories that contain dishes.
+    const menuCategories = menu.categories?.length > 0
+      ? categories.filter((cat) => menu.categories.includes(cat.id))
+      : categories.filter((cat) => cat.dishes && cat.dishes.length > 0);
 
     return menuCategories.map((cat) => ({
       key: `cat-${cat.id}`,
@@ -202,7 +204,7 @@ export default function MenuSection({
 
       {groups.filter((g) => g.items.length > 0).map((g, idx) => (
         <div key={g.key} id={`panel-${g.key}`} role="tabpanel" aria-labelledby={`tab-${g.key}`}>
-          <MenuGroup id={`group-${g.key}`} title={g.title} items={g.items}  first={idx === 0} />
+          <MenuGroup id={`group-${g.key}`} title={g.title} items={g.items} first={idx === 0} />
         </div>
       ))}
 

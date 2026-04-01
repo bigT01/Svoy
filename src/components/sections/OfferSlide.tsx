@@ -1,4 +1,3 @@
-import { SwiperSlide } from "swiper/react";
 import { IOffer } from "./offersSlider";
 import Link from "next/link";
 import Image from "next/image";
@@ -38,20 +37,18 @@ function OfferSlide({
   const [imgSrc, setImgSrc] = useState(getImageSrc(firstMedia));
 
   return (
-    <SwiperSlide className="!w-[calc(100vw-32px)] sm:!w-[84vw] md:!w-[78vw] lg:!w-[1000px]">
-      <Link href={`/${locale}/${pathname.split("/")[2]}/offers/${offer.id}`}>
-        <article className="relative aspect-[1000/492]">
-          <Image
-            src={imgSrc}
-            alt={offerTitle || "Offer image"}
-            onError={() => setImgSrc("/images/placeholder.jpg")}
-            fill
-            priority={priority}
-            className="object-cover"
-          />
-        </article>
-      </Link>
-    </SwiperSlide>
+    <Link href={`/${locale}/${pathname.split("/")[2]}/offers/${offer.id}`} className="block w-full h-full">
+      <article className="relative aspect-[1000/492] w-full h-full">
+        <Image
+          src={imgSrc}
+          alt={offerTitle || "Offer image"}
+          onError={() => setImgSrc("/images/placeholder.jpg")}
+          fill
+          priority={priority}
+          className="object-cover"
+        />
+      </article>
+    </Link>
   );
 }
 
