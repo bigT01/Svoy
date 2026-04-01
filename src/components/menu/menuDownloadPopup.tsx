@@ -57,7 +57,7 @@ export default function MenuDownloadPopup({ isOpen, onClose }: Props) {
         <div className="p-6 flex flex-col gap-4 bg-gray-50/50">
           <Link
             href="/menu/menu.pdf"
-            target="_blank"
+            target="_blank" download
             rel="noopener noreferrer"
             onClick={onClose}
             className="flex items-center justify-center w-full h-[58px] rounded-md border-2 border-[#6E2525] bg-white text-[#6E2525] font-bold text-[18px] hover:bg-[#6E2525] hover:text-white transition-all active:scale-[0.98]"
@@ -67,7 +67,7 @@ export default function MenuDownloadPopup({ isOpen, onClose }: Props) {
 
           <Link
             href="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/menu.pdf"
-            target="_blank"
+            target="_blank" download
             rel="noopener noreferrer"
             onClick={onClose}
             className="flex items-center justify-center w-full h-[58px] rounded-md border-2 border-[#6E2525] bg-white text-[#6E2525] font-bold text-[18px] hover:bg-[#6E2525] hover:text-white transition-all active:scale-[0.98]"
@@ -77,7 +77,7 @@ export default function MenuDownloadPopup({ isOpen, onClose }: Props) {
 
           <Link
             href="https://xqqmtekqxsnuxmm3.public.blob.vercel-storage.com/Banket-menu.pdf"
-            target="_blank"
+            target="_blank" download
             rel="noopener noreferrer"
             onClick={onClose}
             className="flex items-center justify-center w-full h-[58px] rounded-md border-2 border-[#6E2525] bg-[#6E2525] text-white font-bold text-[18px] hover:opacity-90 transition-all active:scale-[0.98]"
