@@ -4,7 +4,7 @@
     "offers": "Our offers",
     "menu": "Restaurant menu",
     "contact": "Contact us",
-    "address": "24 Zhumabaeva St.",
+    "address": "33 Syganak St.",
     "phone": "+7 777 09 00 333"
   },
   "footer": {
@@ -12,7 +12,7 @@
     "addressTitle": "Address",
     "hours": "Opening hours",
     "phone": "+7 777 09 00 333",
-    "address": "Astana, Zhumabayev St., 24",
+    "address": "Astana, Syganak St., 33",
     "work": {
       "monThu": { "label": "Mon–Thu", "time": "17:00–01:00" },
       "fri":     { "label": "Fri",     "time": "17:00–02:00" },

@@ -43,7 +43,7 @@ export default function Footer() {
               <h3 className="text-[24px] font-semibold leading-7 mb-3">{t("addressTitle")}</h3>
               <p className="text-[16px] leading-6">{addressText}</p>
               <div className="mt-4">
-                <Link href={'https://go.2gis.com/RfM9b'} target="_blanck">
+                <Link href={'https://2gis.kz/astana/geo/70000001110614121'} target="_blanck">
                   <Image src="/icons/footer/adress-footer.png" alt={t("addressTitle")} width={24} height={24} />
                 </Link>
                 
