@@ -4,6 +4,7 @@ import Container from '@/components/layout/container';
 import MenuSection from '@/components/menu/menuSection';
 import OffersSlider from '@/components/sections/offersSlider';
 import { Metadata } from 'next';
+import AddressInsteadOfMenu from '@/components/sections/AddressInsteadOfMenu';
 
 export const metaData:Metadata = {
   title: 'Svoy Lounge',
@@ -19,7 +20,9 @@ const Page = () => {
           <OffersSlider/>
         </Container>
       </section>
-    <MenuSection/>
+      {/* Menu is temporarily hidden as requested */}
+      {/* <MenuSection/> */}
+      <AddressInsteadOfMenu />
     </>
   )
 }
