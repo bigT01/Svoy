@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 type WorkRow = { label: string; time: string };
@@ -12,6 +12,7 @@ export default function Footer() {
   const phoneText = t("phone");
   const phoneHref = phoneText.replace(/[^\d+]/g, "");
   const addressText = t("address");
+  const addressText2 = t("address_2");
 
   const work = t.raw("work") as {
     monThu: WorkRow; fri: WorkRow; sat: WorkRow; sun: WorkRow;
@@ -46,7 +47,14 @@ export default function Footer() {
                 <Link href={'https://2gis.kz/astana/geo/70000001110614121'} target="_blanck">
                   <Image src="/icons/footer/adress-footer.png" alt={t("addressTitle")} width={24} height={24} />
                 </Link>
-                
+
+              </div>
+              <p className="text-[16px] mt-2 leading-6">{addressText2}</p>
+              <div className="mt-4">
+                <Link href={'https://go.2gis.com/asub0'} target="_blanck">
+                  <Image src="/icons/footer/adress-footer.png" alt={t("addressTitle")} width={24} height={24} />
+                </Link>
+
               </div>
             </section>
 
@@ -84,11 +92,11 @@ export default function Footer() {
             </p>
             <div className="mt-3 flex items-center gap-5">
               <Link href={"https://api.whatsapp.com/send/?phone=77770900333&text&type=phone_number&app_absent=0&wame_ctl=1&source_surface=23"} target="_blanck">
-              <Image src="/icons/footer/whatsapp.svg" alt="WhatsApp" width={28} height={28} />
+                <Image src="/icons/footer/whatsapp.svg" alt="WhatsApp" width={28} height={28} />
               </Link>
               <Link href={'https://www.instagram.com/svoy.astana/'} target="_blanck">
-              <Image src="/icons/footer/instagram.svg" alt="Instagram" width={28} height={28} />
-              
+                <Image src="/icons/footer/instagram.svg" alt="Instagram" width={28} height={28} />
+
               </Link>
             </div>
           </section>
@@ -98,9 +106,16 @@ export default function Footer() {
             <p className="mt-3 text-[18px] leading-[26px]">{addressText}</p>
             <div className="mt-3">
               <Link href={'https://go.2gis.com/RfM9b'} target="_blanck">
-              <Image src="/icons/footer/adress-footer.png" alt={t("addressTitle")} width={28} height={28} />
-              
+                <Image src="/icons/footer/adress-footer.png" alt={t("addressTitle")} width={28} height={28} />
+
               </Link>
+            </div>
+            <p className="text-[18px] mt-2 leading-[26px]">{addressText2}</p>
+            <div className="mt-4">
+              <Link href={'https://go.2gis.com/asub0'} target="_blanck">
+                <Image src="/icons/footer/adress-footer.png" alt={t("addressTitle")} width={24} height={24} />
+              </Link>
+
             </div>
           </section>
 
@@ -133,22 +148,22 @@ function FooterLinesDesktop() {
   return (
     <div
       className="absolute left-0 right-0 top-[445px] z-0 px-[100px] overflow-x-clip"
-      style={{["--logoW" as any]: `${logoW}px`, ["--gapX" as any]: `${gapX}px`}}
+      style={{ ["--logoW" as any]: `${logoW}px`, ["--gapX" as any]: `${gapX}px` }}
     >
       <div className="relative h-[4px]">
         <span className="absolute left-0 top-0 h-[4px] bg-white/90"
-              style={{ width: "max(0px, calc(50% - (var(--logoW) / 2) - var(--gapX)))" }} />
+          style={{ width: "max(0px, calc(50% - (var(--logoW) / 2) - var(--gapX)))" }} />
         <span className="absolute right-0 top-0 h-[4px] bg-white/90"
-              style={{ width: "max(0px, calc(50% - (var(--logoW) / 2) - var(--gapX)))" }} />
+          style={{ width: "max(0px, calc(50% - (var(--logoW) / 2) - var(--gapX)))" }} />
       </div>
     </div>
   );
 }
 
-function DesktopSchedule({rows}: {rows: WorkRow[]}) {
+function DesktopSchedule({ rows }: { rows: WorkRow[] }) {
   return (
     <div className="text-[16px] leading-7">
-      {rows.map(({label, time}) => (
+      {rows.map(({ label, time }) => (
         <div key={label} className="grid grid-cols-[56px,1fr] gap-4">
           <span className="opacity-90">{label}</span>
           <span className="opacity-100 tabular-nums">{time}</span>
@@ -158,11 +173,11 @@ function DesktopSchedule({rows}: {rows: WorkRow[]}) {
   );
 }
 
-function MobileSchedule({rows}: {rows: WorkRow[]}) {
+function MobileSchedule({ rows }: { rows: WorkRow[] }) {
   // CENTER rows vertically so nothing looks shifted down
   return (
     <div className="text-[18px] leading-[28px]">
-      {rows.map(({label, time}) => (
+      {rows.map(({ label, time }) => (
         <div key={label} className="grid grid-cols-[88px,1fr] gap-x-4 gap-y-2 items-center">
           <span>{label}</span>
           <span className="tabular-nums">{time}</span>

@@ -1,11 +1,11 @@
 'use client';
 
-import {useEffect, useMemo, useRef, useState, useCallback} from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
-import {useLocale, useTranslations} from "next-intl";
-import {locales} from "@/i18n/routing";
+import { usePathname } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { locales } from "@/i18n/routing";
 import Container from "@/components/layout/container";
 
 export default function Navbar() {
@@ -47,7 +47,7 @@ export default function Navbar() {
         setShowMobileBar(bottom <= 0);
       };
       update();
-      window.addEventListener("scroll", update, {passive: true});
+      window.addEventListener("scroll", update, { passive: true });
       window.addEventListener("resize", update);
 
       cleanupRef.current = () => {
@@ -68,7 +68,7 @@ export default function Navbar() {
           attach(el);
         }
       });
-      mo.observe(document.body, {childList: true, subtree: true});
+      mo.observe(document.body, { childList: true, subtree: true });
       cleanupRef.current = () => mo?.disconnect();
     }
 
@@ -94,11 +94,10 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-[60]">
       {/* Mobile top bar (phones & small tablets) */}
       <div
-        className={`md:hidden transition-transform duration-300 will-change-transform ${
-          showMobileBar
-            ? "translate-y-0 opacity-100 pointer-events-auto"
-            : "-translate-y-full opacity-0 pointer-events-none"
-        } bg-white border-b-[3px] border-[#6E2525]`}
+        className={`md:hidden transition-transform duration-300 will-change-transform ${showMobileBar
+          ? "translate-y-0 opacity-100 pointer-events-auto"
+          : "-translate-y-full opacity-0 pointer-events-none"
+          } bg-white border-b-[3px] border-[#6E2525]`}
       >
         <div className="relative h-[96px] w-full">
           <Link
@@ -121,16 +120,16 @@ export default function Navbar() {
             {/* Left: logo */}
             <div className="flex-shrink-0">
               {/* <Link href={`/${locale}`} aria-label="SVOY"> */}
-                <Image src="/icons/logo/logo-red.svg" alt="SVOY" width={109} height={52} />
+              <Image src="/icons/logo/logo-red.svg" alt="SVOY" width={109} height={52} />
               {/* </Link> */}
             </div>
 
             {/* Center nav (large screens) */}
             <nav className="hidden lg:flex flex-1 justify-center">
               <ul className="flex gap-10 text-[20px] leading-[28px] text-[#151515]">
-                <li><a href="#about"  className="hover:opacity-70">{t("about")}</a></li>
+                <li><a href="#about" className="hover:opacity-70">{t("about")}</a></li>
                 <li><a href="#offers" className="hover:opacity-70">{t("offers")}</a></li>
-                <li><a href="#menu"   className="hover:opacity-70">{t("menu")}</a></li>
+                <li><a href="#menu" className="hover:opacity-70">{t("menu")}</a></li>
                 {/* Scroll to footer on click */}
                 <li>
                   <a href="#site-footer" onClick={onContactClick} className="hover:opacity-70">
@@ -144,14 +143,24 @@ export default function Navbar() {
             <div className="hidden md:block">
               <div className="grid grid-cols-[20px_auto] gap-x-2 gap-y-1 items-center">
                 <Link href={'https://2gis.kz/astana/geo/70000001110614121'} target="_blanck">
-                
-                <Image src="/icons/navbar/address-navbar.svg" alt="Адрес" width={20} height={20} />
+
+                  <Image src="/icons/navbar/address-navbar.svg" alt="Адрес" width={20} height={20} />
                 </Link>
                 <Link href={'https://2gis.kz/astana/geo/70000001110614121'} target="_blanck">
-                
-                <span className="whitespace-nowrap text-[20px] leading-[23px]">
-                  {t("address")}
-                </span>
+
+                  <span className="whitespace-nowrap text-[20px] leading-[23px]">
+                    {t("address")}
+                  </span>
+                </Link>
+                <Link href={'https://2gis.kz/astana/geo/70000001110614121'} target="_blanck">
+
+                  <Image src="/icons/navbar/address-navbar.svg" alt="Адрес" width={20} height={20} />
+                </Link>
+                <Link href={'https://go.2gis.com/gSmXu'} target="_blanck">
+
+                  <span className="whitespace-nowrap text-[20px] leading-[23px]">
+                    {t("address_2")}
+                  </span>
                 </Link>
                 <Image src="/icons/navbar/phone.svg" alt="Телефон" width={20} height={20} />
                 <a
