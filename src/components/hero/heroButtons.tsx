@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import MenuDownloadPopup from "@/components/menu/menuDownloadPopup";
+import { usePathname } from "next/navigation";
 
 type Props = { variant?: "mobile" | "desktop" };
 
@@ -41,6 +42,7 @@ export default function HeroButtons({ variant = "desktop" }: Props) {
   const t = useTranslations("hero.buttons");
   const isMobile = variant === "mobile";
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
+  const pathname = usePathname();
 
   // widen the mobile download button and reduce its horizontal padding
   const dlW = isMobile ? "w-[226px]" : "w-[226px]";
@@ -74,20 +76,20 @@ export default function HeroButtons({ variant = "desktop" }: Props) {
 
       <MenuDownloadPopup isOpen={isMenuPopupOpen} onClose={() => setIsMenuPopupOpen(false)} />
 
-      {/* VIEW ONLINE */}
-      <SmoothScroll
-        targetId="menu"
+      {/* VIEW OUR OFFERS */}
+      <Link
+        href={`${pathname}/offers`}
         className={[
           "flex items-center justify-center rounded-[2px] border font-semibold",
           "text-[16px] md:text-[18px] lg:text-[20px] leading-[20px]",
-          "whitespace-nowrap", // keep on one line just in case
+          "whitespace-nowrap",
           viewW, viewH, pxX, pyY,
           "bg-white text-[#6E2525] border-[#6E2525]",
           "shadow-[0_0_12px_0_rgba(0,0,0,0.75)]",
         ].join(" ")}
       >
-        {t("viewOnline")}
-      </SmoothScroll>
+        {t("viewOffers")}
+      </Link>
     </div>
   );
 }

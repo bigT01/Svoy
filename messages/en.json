@@ -52,12 +52,14 @@
     "back": "Back to Home",
     "share": "Share",
     "book": "Reserve",
-    "bookDesc": "Contact us via:"
+    "bookDesc": "Contact us via:",
+    "viewDetails": "View details"
   },
   "hero": {
     "buttons": {
       "download": "Download menu",
-      "viewOnline": "View menu online"
+      "viewOnline": "View menu online",
+      "viewOffers": "View our offers"
     }
   },
   "modal": {

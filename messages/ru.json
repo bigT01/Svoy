@@ -50,7 +50,8 @@
   },
   "offerDetail": {
     "back": "Вернуться на главную",
-    "share": "Поделиться"
+    "share": "Поделиться",
+    "viewDetails": "Подробнее"
   },
   "modal": {
     "whatsapp": "Написать Whatsapp",
@@ -59,7 +60,8 @@
   "hero": {
     "buttons": {
       "download": "Скачать меню",
-      "viewOnline": "Смотреть меню на сайте"
+      "viewOnline": "Смотреть меню на сайте",
+      "viewOffers": "Смотреть наши предложения"
     }
   },
   "menu": {
