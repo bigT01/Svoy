@@ -75,8 +75,36 @@ export default function OffersPageClient() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-white font-raleway flex items-center justify-center">
-        <p className="text-xl text-[#6E2525]">Загрузка...</p>
+      <main className="min-h-screen bg-white font-raleway">
+        <div className="pt-[120px] md:pt-[140px]" />
+        <Container>
+          {/* Skeleton back button */}
+          <div className="flex items-center gap-3 h-[40px] mb-8">
+            <div className="w-10 h-10 rounded bg-[#E4C7C7]/40 animate-pulse" />
+            <div className="w-[180px] h-5 rounded bg-[#E4C7C7]/40 animate-pulse" />
+          </div>
+          {/* Skeleton title */}
+          <div className="w-[320px] md:w-[480px] h-9 md:h-11 rounded bg-[#E4C7C7]/40 animate-pulse mb-8 md:mb-12" />
+          {/* Skeleton cards grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pb-16 md:pb-24">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="bg-white border-2 border-[#E4C7C7]/30 rounded-xl overflow-hidden"
+              >
+                {/* Image skeleton */}
+                <div className="relative aspect-[16/10] w-full bg-[#E4C7C7]/20 animate-pulse" />
+                {/* Content skeleton */}
+                <div className="p-5 md:p-6 space-y-3">
+                  <div className="w-3/4 h-6 rounded bg-[#E4C7C7]/30 animate-pulse" />
+                  <div className="w-full h-4 rounded bg-[#E4C7C7]/20 animate-pulse" />
+                  <div className="w-2/3 h-4 rounded bg-[#E4C7C7]/20 animate-pulse" />
+                  <div className="w-[100px] h-4 rounded bg-[#E4C7C7]/30 animate-pulse mt-4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
       </main>
     );
   }
